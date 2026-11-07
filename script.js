@@ -5,7 +5,7 @@ updateCountdown();setInterval(updateCountdown,1000);
 const toggle=document.querySelector('.menu-toggle'),nav=document.querySelector('.nav');toggle.addEventListener('click',()=>{const open=nav.classList.toggle('open');toggle.setAttribute('aria-expanded',String(open))});nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{nav.classList.remove('open');toggle.setAttribute('aria-expanded','false')}));
 const dialog=document.getElementById('rsvp-dialog');document.getElementById('open-rsvp').addEventListener('click',()=>dialog.showModal());document.querySelector('.dialog-close').addEventListener('click',()=>dialog.close());dialog.addEventListener('click',e=>{if(e.target===dialog)dialog.close()});
 // ===== Live RSVP submission (Google Apps Script + Google Sheets) =====
-const RSVP_ENDPOINT='PASTE_YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE';
+const RSVP_ENDPOINT='https://script.google.com/macros/s/AKfycbxsh4w216H15EXjHmVejFjYc9jdFXp9FCUhxOqqPHNv9QTfH_fxtiqWYRqnY6OKOrgvYg/exec';
 const rsvpForm=document.getElementById('rsvp-form');
 const rsvpSubmit=rsvpForm.querySelector('.submit-rsvp');
 const rsvpStatus=document.getElementById('rsvp-status');
