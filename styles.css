@@ -84,3 +84,14 @@ body.envelope-locked{overflow:hidden}
 @keyframes envelope-lift{to{transform:translateY(-18px) scale(1.035);opacity:0}}
 @media(max-width:520px){.envelope-intro{margin-bottom:24px}.envelope-button{width:min(86vw,380px);height:54vw;min-height:190px}.envelope-letter{font-size:25px}.wax-seal{width:51px;height:51px}.tap-to-open{margin-top:23px}.music-toggle{right:14px;bottom:14px}}
 @media(prefers-reduced-motion:reduce){.tap-to-open{animation:none}.envelope-flap,.envelope-letter,.wax-seal,.envelope-screen{transition-duration:.01ms!important}}
+
+
+/* Envelope layering and reveal timing correction */
+.envelope-screen .envelope-letter{z-index:1}
+.envelope-screen .envelope-front{z-index:2}
+.envelope-screen .envelope-flap{z-index:4;transform-style:preserve-3d}
+.envelope-screen.is-opening .envelope-letter{z-index:3;transform:translateY(-62%) scale(1.025)}
+.envelope-screen.is-opening .envelope-front{z-index:2}
+.envelope-screen.is-opening .envelope-flap{z-index:1;transform:rotateX(180deg)}
+.envelope-screen.is-opening .envelope-button{animation:envelope-lift 1.2s 1.15s both}
+@keyframes envelope-lift{to{transform:translateY(-24px) scale(1.035)}}
