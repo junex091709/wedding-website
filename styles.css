@@ -47,3 +47,40 @@ html{scroll-behavior:smooth;scroll-padding-top:88px}
 @keyframes ambient-drift{from{transform:translate(0,0) rotate(0)}to{transform:translate(22px,-16px) rotate(18deg)}}
 @media(max-width:760px){html{scroll-padding-top:72px}.hero:before{width:240px;height:240px;left:-170px}.hero:after{width:180px;height:180px;right:-120px}.event-card:hover,.gallery-grid .photo-placeholder:hover{transform:none}.reveal{transform:translateY(22px)}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;transition-delay:0ms!important}.reveal{opacity:1;transform:none}}
+
+
+/* ===== Personalized envelope opening experience ===== */
+body.envelope-locked{overflow:hidden}
+.envelope-screen{position:fixed;inset:0;z-index:1000;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:28px 20px;background:radial-gradient(ellipse at 50% 38%,#fdfbf4 0%,#f3f0e6 62%,#e6e5d8 100%);text-align:center;opacity:1;visibility:visible;transition:opacity 1s ease,visibility 1s ease}
+.envelope-screen:before,.envelope-screen:after{content:"";position:absolute;width:min(68vw,520px);height:min(68vw,520px);border:1px solid rgba(101,115,93,.12);border-radius:50%;pointer-events:none}
+.envelope-screen:after{width:min(82vw,650px);height:min(82vw,650px);border-color:rgba(176,154,113,.12)}
+.envelope-intro,.tap-to-open,.envelope-footer{position:relative;z-index:2}
+.envelope-intro{margin-bottom:30px}
+.envelope-intro .eyebrow{margin-bottom:5px}
+.guest-name{font:clamp(34px,6vw,52px)/1.1 Italianno,cursive;color:var(--sage-dark);margin:0}
+.envelope-hint{font:italic 14px 'Cormorant Garamond',serif;color:var(--muted);margin:7px 0 0}
+.envelope-button{position:relative;display:block;width:min(78vw,420px);height:min(51vw,270px);min-height:190px;border:0;background:transparent;cursor:pointer;perspective:1000px;filter:drop-shadow(0 22px 24px rgba(61,72,55,.16));-webkit-tap-highlight-color:transparent}
+.envelope-back{position:absolute;inset:0;background:#d9d2bd;border-radius:5px;clip-path:polygon(0 0,100% 0,100% 100%,0 100%);z-index:0}
+.envelope-letter{position:absolute;z-index:1;left:8%;right:8%;top:8%;height:84%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;background:#fffdf6;border:1px solid #e6dfce;color:var(--sage-dark);font:30px 'Cormorant Garamond',serif;transition:transform 1.1s .15s var(--motion-ease);box-shadow:0 2px 8px #4a4a3210}
+.envelope-letter i{color:var(--gold);font-size:22px}
+.envelope-letter small{font:8px 'DM Sans',sans-serif;letter-spacing:2px;color:var(--muted)}
+.envelope-front{position:absolute;inset:0;z-index:2;background:linear-gradient(145deg,#e9e2d1,#d7d0bc);clip-path:polygon(0 0,50% 56%,100% 0,100% 100%,0 100%);border-radius:5px}
+.envelope-front:after{content:"";position:absolute;inset:0;background:linear-gradient(35deg,rgba(255,255,255,.15),transparent 45%,rgba(111,119,91,.07))}
+.envelope-flap{position:absolute;z-index:4;left:0;right:0;top:0;height:58%;background:linear-gradient(160deg,#f1eadb,#d9d1bd);clip-path:polygon(0 0,100% 0,50% 100%);transform-origin:50% 0;transition:transform 1s cubic-bezier(.2,.7,.2,1),z-index .01s 0s;backface-visibility:visible}
+.wax-seal{position:absolute;z-index:5;left:50%;top:52%;transform:translate(-50%,-50%);width:58px;height:58px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 35% 30%,#bda77b,#92764c 72%);border:2px solid rgba(255,245,215,.5);box-shadow:0 3px 9px #5b493344,inset 0 0 0 3px rgba(255,255,255,.12);color:#fff7e7;font:20px 'Cormorant Garamond',serif;transition:opacity .35s ease,transform .65s ease}
+.wax-seal span{font-size:13px;margin:0 1px}
+.tap-to-open{font-size:9px;letter-spacing:2.2px;color:var(--sage);margin:28px 0 0;animation:envelope-pulse 2.3s ease-in-out infinite}
+.envelope-footer{position:absolute;bottom:24px;font-size:8px;letter-spacing:2px;color:#9a9d8d}
+.envelope-screen.is-opening .envelope-flap{transform:rotateX(180deg);z-index:0}
+.envelope-screen.is-opening .wax-seal{opacity:0;transform:translate(-50%,-50%) scale(1.5)}
+.envelope-screen.is-opening .envelope-letter{transform:translateY(-42%)}
+.envelope-screen.is-opening .envelope-button{animation:envelope-lift 1.2s 1s both}
+.envelope-screen.is-closing{opacity:0;visibility:hidden;pointer-events:none}
+.music-toggle{position:fixed;right:22px;bottom:22px;z-index:50;border:1px solid rgba(101,115,93,.25);border-radius:40px;background:rgba(252,250,243,.94);color:var(--sage-dark);padding:11px 16px;display:flex;align-items:center;gap:9px;font:600 9px 'DM Sans',sans-serif;letter-spacing:1.2px;box-shadow:0 8px 24px rgba(45,57,47,.12);cursor:pointer;backdrop-filter:blur(8px)}
+.music-toggle[hidden]{display:none}
+.music-icon{font-size:17px;color:var(--gold)}
+.music-toggle.is-muted .music-icon{opacity:.45}
+@keyframes envelope-pulse{0%,100%{opacity:.58;transform:translateY(0)}50%{opacity:1;transform:translateY(-4px)}}
+@keyframes envelope-lift{to{transform:translateY(-18px) scale(1.035);opacity:0}}
+@media(max-width:520px){.envelope-intro{margin-bottom:24px}.envelope-button{width:min(86vw,380px);height:54vw;min-height:190px}.envelope-letter{font-size:25px}.wax-seal{width:51px;height:51px}.tap-to-open{margin-top:23px}.music-toggle{right:14px;bottom:14px}}
+@media(prefers-reduced-motion:reduce){.tap-to-open{animation:none}.envelope-flap,.envelope-letter,.wax-seal,.envelope-screen{transition-duration:.01ms!important}}
