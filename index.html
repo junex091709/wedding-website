@@ -7,7 +7,31 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@400;500;600&family=Italianno&display=swap" rel="stylesheet"><link rel="stylesheet" href="styles.css">
 </head>
-<body>
+<body>\n
+<!-- Interactive envelope opening screen -->
+<div class="envelope-screen" id="envelope-screen">
+  <div class="envelope-intro">
+    <p class="eyebrow">A SPECIAL INVITATION FOR</p>
+    <p class="guest-name" id="guest-name">Dear Guest</p>
+    <p class="envelope-hint">You are cordially invited to celebrate with us</p>
+  </div>
+  <button class="envelope-button" id="open-envelope" type="button" aria-label="Open your wedding invitation">
+    <span class="envelope-back"></span>
+    <span class="envelope-letter"><span>Olivia <i>&</i> Alexander</span><small>DECEMBER 12, 2026</small></span>
+    <span class="envelope-front"></span>
+    <span class="envelope-flap"></span>
+    <span class="wax-seal">O<span>&</span>A</span>
+  </button>
+  <p class="tap-to-open">TAP THE ENVELOPE TO OPEN</p>
+  <p class="envelope-footer">WITH LOVE · CEBU, PHILIPPINES</p>
+</div>
+<audio id="wedding-music" preload="none" loop>
+  <source src="assets/canon-in-d-piano.mp3" type="audio/mpeg">
+</audio>
+<button class="music-toggle" id="music-toggle" type="button" aria-label="Mute background music" hidden>
+  <span class="music-icon">♫</span><span class="music-label">MUSIC ON</span>
+</button>
+
 <header class="site-header"><a class="brand" href="#home">O <i>&</i> A</a><button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">☰</button><nav class="nav"><a href="#story">Our Story</a><a href="#details">The Day</a><a href="#entourage">Entourage</a><a href="#gallery">Gallery</a><a class="nav-rsvp" href="#rsvp">RSVP</a></nav></header>
 <main>
 <section class="hero" id="home"><div class="hero-copy"><p class="eyebrow light">A CELEBRATION OF LOVE</p><h1>Olivia <span>&</span><br>Alexander</h1><p class="hero-date">DECEMBER 12, 2026 <b>·</b> CEBU, PHILIPPINES</p><a class="outline-link" href="#invitation">OPEN INVITATION ↓</a></div><div class="hero-photo photo-placeholder" role="img" aria-label="Couple portrait placeholder"><span>YOUR COUPLE PHOTO</span></div></section>
