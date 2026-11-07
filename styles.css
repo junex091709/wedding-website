@@ -250,3 +250,18 @@ body.envelope-locked{overflow:hidden}
   transform:translateY(-12px);
   pointer-events:none;
 }
+
+
+/* Keep the greeting visible until the invitation paper has emerged */
+.envelope-screen .envelope-intro{
+  opacity:1;
+  transform:translateY(0);
+  transition:opacity .6s ease,transform .6s ease;
+  transition-delay:0s;
+}
+.envelope-screen.is-opening .envelope-intro{
+  opacity:0;
+  transform:translateY(-12px);
+  transition-delay:1.55s;
+  pointer-events:none;
+}
