@@ -63,7 +63,7 @@ envelopeButton.addEventListener('click',()=>{
     envelopeScreen.classList.add('is-closing');
     document.body.classList.remove('envelope-locked');
     window.setTimeout(()=>{envelopeScreen.hidden=true;},1050);
-  },2700);
+  },3450);
 });
 musicToggle.addEventListener('click',()=>{
   if(weddingMusic.paused){
