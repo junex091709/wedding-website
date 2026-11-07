@@ -4,7 +4,52 @@ function updateCountdown(){const diff=Math.max(0,weddingDate-Date.now());const v
 updateCountdown();setInterval(updateCountdown,1000);
 const toggle=document.querySelector('.menu-toggle'),nav=document.querySelector('.nav');toggle.addEventListener('click',()=>{const open=nav.classList.toggle('open');toggle.setAttribute('aria-expanded',String(open))});nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{nav.classList.remove('open');toggle.setAttribute('aria-expanded','false')}));
 const dialog=document.getElementById('rsvp-dialog');document.getElementById('open-rsvp').addEventListener('click',()=>dialog.showModal());document.querySelector('.dialog-close').addEventListener('click',()=>dialog.close());dialog.addEventListener('click',e=>{if(e.target===dialog)dialog.close()});
-document.getElementById('rsvp-form').addEventListener('submit',e=>{e.preventDefault();const data=Object.fromEntries(new FormData(e.currentTarget).entries());const responses=JSON.parse(localStorage.getItem('wedding-rsvps')||'[]');responses.push({...data,submittedAt:new Date().toISOString()});localStorage.setItem('wedding-rsvps',JSON.stringify(responses));alert('Thank you! Your demo RSVP has been saved in this browser.');e.currentTarget.reset();dialog.close()});
+// ===== Live RSVP submission (Google Apps Script + Google Sheets) =====
+const RSVP_ENDPOINT='PASTE_YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE';
+const rsvpForm=document.getElementById('rsvp-form');
+const rsvpSubmit=rsvpForm.querySelector('.submit-rsvp');
+const rsvpStatus=document.getElementById('rsvp-status');
+rsvpForm.addEventListener('submit',async e=>{
+  e.preventDefault();
+  rsvpStatus.textContent='';
+  if(!RSVP_ENDPOINT.startsWith('https://script.google.com/macros/s/')||!RSVP_ENDPOINT.endsWith('/exec')){
+    rsvpStatus.textContent='The RSVP form is not connected yet. Please try again later.';
+    return;
+  }
+  const formData=new FormData(rsvpForm);
+  const payload={
+    name:String(formData.get('name')||'').trim(),
+    attendance:String(formData.get('attendance')||''),
+    guests:Number(formData.get('guests')),
+    message:String(formData.get('message')||'').trim(),
+    submittedAt:new Date().toISOString(),
+    event:'Olivia & Alexander — December 12, 2026'
+  };
+  if(!payload.name||!payload.attendance||!Number.isInteger(payload.guests)||payload.guests<1||payload.guests>8){
+    rsvpStatus.textContent='Please check your name, attendance, and guest count.';
+    return;
+  }
+  rsvpSubmit.disabled=true;
+  rsvpSubmit.textContent='SENDING...';
+  try{
+    await fetch(RSVP_ENDPOINT,{
+      method:'POST',
+      mode:'no-cors',
+      headers:{'Content-Type':'text/plain;charset=utf-8'},
+      body:JSON.stringify(payload)
+    });
+    rsvpStatus.textContent='Thank you! Your RSVP has been sent to the couple.';
+    rsvpForm.reset();
+    const guestInput=rsvpForm.querySelector('[name="name"]');
+    if(guestInput&&guestName.textContent.startsWith('Dear '))guestInput.value=guestName.textContent.slice(5);
+    window.setTimeout(()=>dialog.close(),1800);
+  }catch(error){
+    rsvpStatus.textContent='We could not send your RSVP. Please check your connection and try again.';
+  }finally{
+    rsvpSubmit.disabled=false;
+    rsvpSubmit.textContent='SUBMIT RSVP';
+  }
+});
 
 // ===== Scroll reveals and subtle interaction polish =====
 const reduceMotion=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -40,7 +85,11 @@ const musicToggle=document.getElementById('music-toggle');
 const guestParam=new URLSearchParams(window.location.search).get('guest');
 if(guestParam){
   const safeGuest=guestParam.trim().slice(0,80);
-  if(safeGuest)guestName.textContent='Dear '+safeGuest;
+  if(safeGuest){
+    guestName.textContent='Dear '+safeGuest;
+    const rsvpNameInput=document.querySelector('#rsvp-form [name="name"]');
+    if(rsvpNameInput)rsvpNameInput.value=safeGuest;
+  }
 }
 let musicStarted=false;
 function updateMusicButton(){
