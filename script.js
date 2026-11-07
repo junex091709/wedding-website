@@ -45,8 +45,9 @@ if(guestParam){
 let musicStarted=false;
 function updateMusicButton(){
   const playing=!weddingMusic.paused&&!weddingMusic.muted;
+  const label=playing?'MUSIC ON':(weddingMusic.paused?'PLAY MUSIC':'MUSIC OFF');
   musicToggle.classList.toggle('is-muted',!playing);
-  musicToggle.querySelector('.music-label').textContent=playing?'MUSIC ON':'MUSIC OFF';
+  musicToggle.querySelector('.music-label').textContent=label;
   musicToggle.setAttribute('aria-label',playing?'Mute background music':'Play background music');
 }
 envelopeButton.addEventListener('click',()=>{
