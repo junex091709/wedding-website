@@ -838,3 +838,8 @@ body::after{
 @media(prefers-reduced-motion:reduce){
   .invitation,.story,.entourage,.gallery,.dress-code{background-attachment:scroll}
 }
+
+/* ===== Clickable wedding day map cards ===== */
+.event-card.map-clickable{cursor:pointer}
+.event-card.map-clickable:focus-visible{outline:2px solid var(--sage);outline-offset:5px}
+.event-card.map-clickable>a{position:relative;z-index:1}
