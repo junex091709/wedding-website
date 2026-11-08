@@ -3,28 +3,55 @@ const weddingDate = new Date('2026-12-12T14:00:00+08:00').getTime();
 function updateCountdown(){const diff=Math.max(0,weddingDate-Date.now());const values={days:Math.floor(diff/86400000),hours:Math.floor(diff/3600000)%24,minutes:Math.floor(diff/60000)%60,seconds:Math.floor(diff/1000)%60};for(const [id,value] of Object.entries(values)){const el=document.getElementById(id);if(el)el.textContent=String(value).padStart(id==='days'?3:2,'0')}}
 updateCountdown();setInterval(updateCountdown,1000);
 const toggle=document.querySelector('.menu-toggle'),nav=document.querySelector('.nav');toggle.addEventListener('click',()=>{const open=nav.classList.toggle('open');toggle.setAttribute('aria-expanded',String(open))});nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{nav.classList.remove('open');toggle.setAttribute('aria-expanded','false')}));
-const dialog=document.getElementById('rsvp-dialog');document.getElementById('open-rsvp').addEventListener('click',async()=>{
-  const nameField=document.getElementById('guest-verify-name');
-  const verifyStatus=document.getElementById('guest-verify-status');
-  const name=String(nameField.value||'').trim();
-  verifyStatus.textContent='';
-  if(!name){verifyStatus.textContent='Please enter your invited name first.';nameField.focus();return;}
-  const verifyButton=document.getElementById('open-rsvp');
-  verifyButton.disabled=true;
-  verifyButton.textContent='VERIFYING...';
+const dialog=document.getElementById('rsvp-dialog');
+const guestVerifyDialog=document.getElementById('guest-verify-dialog');
+const guestVerifyForm=document.getElementById('guest-verify-form');
+const guestVerifyInput=document.getElementById('guest-verify-name');
+const guestVerifyStatus=document.getElementById('guest-verify-status');
+const guestVerifySubmit=document.getElementById('verify-guest-submit');
+function openGuestVerification(){
+  guestVerifyStatus.textContent='';
+  guestVerifyInput.value='';
+  guestVerifyDialog.showModal();
+  window.setTimeout(()=>guestVerifyInput.focus(),50);
+}
+document.querySelectorAll('.nav-rsvp').forEach(link=>link.addEventListener('click',event=>{
+  event.preventDefault();
+  nav.classList.remove('open');
+  toggle.setAttribute('aria-expanded','false');
+  openGuestVerification();
+}));
+document.getElementById('open-guest-verify').addEventListener('click',openGuestVerification);
+guestVerifyForm.addEventListener('submit',async event=>{
+  event.preventDefault();
+  const name=String(guestVerifyInput.value||'').trim();
+  guestVerifyStatus.textContent='';
+  if(!name){guestVerifyStatus.textContent='Please enter your invited name first.';guestVerifyInput.focus();return;}
+  guestVerifySubmit.disabled=true;
+  guestVerifySubmit.textContent='VERIFYING...';
   try{
     const invited=await verifyInvitedGuest(name);
-    if(!invited){verifyStatus.textContent='Sorry, this name is not on the guest list. Please check the spelling or contact the couple.';return;}
+    if(!invited){
+      guestVerifyStatus.textContent='Sorry, this name is not on the guest list. Please check the spelling or contact the couple.';
+      return;
+    }
     rsvpForm.querySelector('[name="name"]').value=name;
-    verifyStatus.textContent='Name verified! Please complete your RSVP.';
+    guestVerifyDialog.close();
     dialog.showModal();
   }catch(error){
-    verifyStatus.textContent='Unable to verify your name right now. '+(error&&error.message?error.message:'Please try again.');
+    guestVerifyStatus.textContent='Unable to verify your name right now. '+(error&&error.message?error.message:'Please try again.');
   }finally{
-    verifyButton.disabled=false;
-    verifyButton.textContent='VERIFY NAME & CONTINUE →';
+    guestVerifySubmit.disabled=false;
+    guestVerifySubmit.textContent='VERIFY NAME & CONTINUE';
   }
-});document.querySelector('.dialog-close').addEventListener('click',()=>dialog.close());dialog.addEventListener('click',e=>{if(e.target===dialog)dialog.close()});
+});
+document.querySelectorAll('.dialog-close').forEach(button=>button.addEventListener('click',()=>{
+  const parentDialog=button.closest('dialog');
+  if(parentDialog)parentDialog.close();
+}));
+[dialog,guestVerifyDialog].forEach(activeDialog=>activeDialog.addEventListener('click',event=>{
+  if(event.target===activeDialog)activeDialog.close();
+}));
 // ===== Live RSVP submission (Google Apps Script + Google Sheets) =====
 const RSVP_ENDPOINT='https://script.google.com/macros/s/AKfycbxsh4w216H15EXjHmVejFjYc9jdFXp9FCUhxOqqPHNv9QTfH_fxtiqWYRqnY6OKOrgvYg/exec';
 const rsvpForm=document.getElementById('rsvp-form');
