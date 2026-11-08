@@ -1104,7 +1104,7 @@ body::after{
 }
 
 
-/* ===== Gradual 1.2-second image-to-image dissolve ===== */
+/* ===== True 1.2-second cross-dissolve between gallery photos ===== */
 .gallery-slides{position:relative;background:#000;isolation:isolate}
 .gallery-slide{
   opacity:0;
@@ -1118,11 +1118,17 @@ body::after{
   z-index:2;
   transition:none;
 }
+/* The incoming photo begins transparent, then fades in over the outgoing photo. */
 .gallery-slide.is-next{
-  opacity:1;
+  opacity:0;
   visibility:visible;
-  z-index:1;
+  z-index:3;
 }
+.gallery-slide.is-next.is-dissolving{
+  opacity:1;
+  transition:opacity 1.2s ease-in-out;
+}
+/* At the same time, the outgoing photo fades away underneath it. */
 .gallery-slide.is-active.is-fading-out{
   opacity:0;
   visibility:visible;
@@ -1130,5 +1136,6 @@ body::after{
   transition:opacity 1.2s ease-in-out;
 }
 @media(prefers-reduced-motion:reduce){
+  .gallery-slide.is-next.is-dissolving,
   .gallery-slide.is-active.is-fading-out{transition:none}
 }
