@@ -37,6 +37,42 @@ function verifyInvitedGuest(name){
     document.head.appendChild(script);
   });
 }
+
+function submitRsvpToSheet(payload){
+  return new Promise((resolve,reject)=>{
+    const callbackName='__rsvpSubmit'+(++guestCheckCounter);
+    const script=document.createElement('script');
+    const timeout=window.setTimeout(()=>{
+      cleanup();
+      reject(new Error('The spreadsheet did not confirm the RSVP in time.'));
+    },15000);
+    function cleanup(){
+      window.clearTimeout(timeout);
+      delete window[callbackName];
+      script.remove();
+    }
+    window[callbackName]=(result)=>{
+      cleanup();
+      if(result&&result.success)resolve(result);
+      else reject(new Error((result&&result.error)||'The spreadsheet could not save this RSVP.'));
+    };
+    script.onerror=()=>{
+      cleanup();
+      reject(new Error('Could not reach the RSVP spreadsheet.'));
+    };
+    const params=new URLSearchParams({
+      action:'submit',
+      name:payload.name,
+      attendance:payload.attendance,
+      guests:String(payload.guests),
+      message:payload.message,
+      callback:callbackName,
+      _:String(Date.now())
+    });
+    script.src=RSVP_ENDPOINT+'?'+params.toString();
+    document.head.appendChild(script);
+  });
+}
 rsvpForm.addEventListener('submit',async e=>{
   e.preventDefault();
   rsvpStatus.textContent='';
@@ -65,14 +101,9 @@ rsvpForm.addEventListener('submit',async e=>{
       rsvpStatus.textContent='Sorry, your name is not on our guest list. This RSVP is reserved for invited guests only. Please contact the couple for assistance.';
       return;
     }
-    rsvpSubmit.textContent='SENDING...';
-    await fetch(RSVP_ENDPOINT,{
-      method:'POST',
-      mode:'no-cors',
-      headers:{'Content-Type':'text/plain;charset=utf-8'},
-      body:JSON.stringify(payload)
-    });
-    rsvpStatus.textContent='Thank you! Your RSVP has been sent to the couple.';
+    rsvpSubmit.textContent='SAVING RSVP...';
+    await submitRsvpToSheet(payload);
+    rsvpStatus.textContent='Thank you! Your RSVP has been saved successfully.';
     rsvpForm.reset();
     const guestInput=rsvpForm.querySelector('[name="name"]');
     if(guestInput&&guestName.textContent.startsWith('Dear '))guestInput.value=guestName.textContent.slice(5);
