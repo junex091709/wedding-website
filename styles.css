@@ -936,3 +936,29 @@ body::after{
 @media(prefers-reduced-motion:reduce){
   .event-card.map-clickable,.map-click-hint{transition:none}
 }
+
+
+/* ===== Wedding gallery lightbox slideshow ===== */
+.gallery-grid .gallery-photo-clickable{cursor:zoom-in;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+.gallery-grid .gallery-photo-clickable:focus-visible{outline:2px solid var(--sage);outline-offset:5px}
+.gallery-grid .gallery-photo-clickable img{transition:transform .55s var(--motion-ease),filter .35s ease}
+.gallery-grid .gallery-photo-clickable:hover img{transform:scale(1.045);filter:saturate(1.06)}
+.gallery-lightbox{width:min(96vw,1100px);max-width:1100px;max-height:94vh;padding:0;border:1px solid rgba(176,154,113,.45);border-radius:8px;background:rgba(25,34,27,.97);color:#fff;overflow:visible;box-shadow:0 25px 100px rgba(0,0,0,.45)}
+.gallery-lightbox::backdrop{background:rgba(18,25,20,.88);backdrop-filter:blur(7px)}
+.lightbox-panel{position:relative;display:flex;align-items:center;justify-content:center;gap:clamp(8px,2vw,24px);padding:clamp(44px,5vw,58px) clamp(10px,2vw,24px) 20px;min-height:300px}
+.lightbox-figure{margin:0;min-width:0;display:grid;justify-items:center;gap:12px;max-width:calc(100% - 100px)}
+.lightbox-figure img{display:block;max-width:100%;width:auto;height:auto;max-height:76vh;object-fit:contain;border-radius:3px;box-shadow:0 12px 45px rgba(0,0,0,.25)}
+.lightbox-figure figcaption{width:100%;display:flex;justify-content:space-between;gap:16px;color:#f1eee4;font-size:10px;letter-spacing:1px}
+.lightbox-close{position:absolute;right:14px;top:10px;width:42px;height:42px;border:1px solid rgba(255,255,255,.45);border-radius:50%;background:rgba(255,255,255,.08);color:white;font-size:28px;line-height:1;cursor:pointer}
+.lightbox-nav{flex:0 0 46px;width:46px;height:46px;border:1px solid rgba(255,255,255,.5);border-radius:50%;background:rgba(255,255,255,.08);color:white;font:36px/1 'Cormorant Garamond',serif;cursor:pointer;transition:background .2s ease,transform .2s ease}
+.lightbox-nav:hover{background:rgba(255,255,255,.2);transform:scale(1.06)}
+@media(max-width:600px){
+  .gallery-lightbox{width:calc(100vw - 18px);max-width:none;max-height:92vh}
+  .lightbox-panel{gap:7px;padding:54px 8px 16px;min-height:240px}
+  .lightbox-figure{max-width:calc(100% - 82px);width:calc(100% - 82px)}
+  .lightbox-figure img{max-height:72vh;max-width:100%}
+  .lightbox-nav{flex-basis:34px;width:34px;height:34px;font-size:29px}
+  .lightbox-close{right:10px;top:8px}
+  .lightbox-figure figcaption{font-size:8px;letter-spacing:.5px}
+}
+@media(prefers-reduced-motion:reduce){.gallery-grid .gallery-photo-clickable img,.lightbox-nav{transition:none}}
