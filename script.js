@@ -319,7 +319,7 @@ function showGallerySlide(index){
   galleryFadeTimer=window.setTimeout(()=>{
     setGallerySlide(nextIndex);
     galleryFadeTimer=null;
-  },1200);
+  },2000);
 }
 function startGalleryAutoSwipe(){
   stopGalleryAutoSwipe();
