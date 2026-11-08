@@ -883,3 +883,56 @@ body::after{
 .map-directions-link{display:flex;align-items:center;justify-content:center;min-height:46px;margin:12px auto 0;padding:12px 18px;width:fit-content;border:1px solid var(--sage);background:var(--sage);color:#fff;text-decoration:none;font:600 10px 'DM Sans',sans-serif;letter-spacing:1.5px}
 .envelope-screen.is-opening .envelope-intro{opacity:0;transform:translateY(-12px);transition-delay:0s}
 @media(max-width:760px){.map-open-link{min-height:48px;padding:12px 18px}.map-directions-link{width:100%}}
+
+
+/* ===== Make the full wedding event cards feel interactive ===== */
+.event-card.map-clickable{
+  position:relative;
+  border:1px solid rgba(101,115,93,.28);
+  background:linear-gradient(145deg,rgba(255,255,255,.96),rgba(239,241,231,.94));
+  box-shadow:0 10px 28px rgba(53,65,57,.07);
+  cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+  touch-action:manipulation;
+  transition:transform .28s ease,box-shadow .28s ease,border-color .28s ease,background .28s ease;
+}
+.event-card.map-clickable:hover,
+.event-card.map-clickable:focus-visible{
+  transform:translateY(-7px);
+  border-color:rgba(101,115,93,.8);
+  background:linear-gradient(145deg,#fffef9,#e8eddf);
+  box-shadow:0 18px 38px rgba(53,65,57,.15),inset 0 0 0 1px rgba(101,115,93,.12);
+  outline:none;
+}
+.event-card.map-clickable:active{transform:translateY(-2px) scale(.99)}
+.map-click-hint{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  margin-top:18px;
+  min-height:38px;
+  padding:9px 15px;
+  border:1px solid rgba(101,115,93,.4);
+  border-radius:30px;
+  background:rgba(101,115,93,.09);
+  color:var(--sage-dark);
+  font:600 9px 'DM Sans',sans-serif;
+  letter-spacing:1.45px;
+  transition:background .25s ease,color .25s ease,border-color .25s ease,transform .25s ease;
+}
+.map-click-hint span{font-size:15px;line-height:1}
+.event-card.map-clickable:hover .map-click-hint,
+.event-card.map-clickable:focus-visible .map-click-hint{
+  background:var(--sage);
+  border-color:var(--sage);
+  color:#fff;
+  transform:translateY(-1px);
+}
+@media(max-width:760px){
+  .event-card.map-clickable{padding-bottom:30px}
+  .map-click-hint{min-height:42px;margin-top:16px}
+}
+@media(prefers-reduced-motion:reduce){
+  .event-card.map-clickable,.map-click-hint{transition:none}
+}
