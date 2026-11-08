@@ -1068,3 +1068,15 @@ body::after{
 @media(prefers-reduced-motion:reduce){
   .gallery-slide{transition:none}
 }
+
+
+/* Gallery transition: fade the outgoing photo away and fade the next one in */
+.gallery-slide{
+  opacity:0;
+  visibility:hidden;
+  transition:opacity 1.2s ease-in-out,visibility 1.2s ease-in-out;
+}
+.gallery-slide.is-active{
+  opacity:1;
+  visibility:visible;
+}
