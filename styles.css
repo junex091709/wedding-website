@@ -1104,7 +1104,7 @@ body::after{
 }
 
 
-/* ===== 1.2-second cross-dissolve with a soft cinematic blur ===== */
+/* ===== 2-second cross-dissolve with a soft cinematic blur ===== */
 .gallery-slides{position:relative;background:#000;isolation:isolate}
 .gallery-slide{
   opacity:0;
@@ -1130,7 +1130,7 @@ body::after{
 .gallery-slide.is-next.is-dissolving{
   opacity:1;
   filter:blur(0);
-  transition:opacity 1.2s ease-in-out,filter 1.2s ease-in-out;
+  transition:opacity 2s ease-in-out,filter 2s ease-in-out;
 }
 /* Outgoing photo softly blurs as it fades away. */
 .gallery-slide.is-active.is-fading-out{
@@ -1138,7 +1138,7 @@ body::after{
   visibility:visible;
   z-index:2;
   filter:blur(9px);
-  transition:opacity 1.2s ease-in-out,filter 1.2s ease-in-out;
+  transition:opacity 2s ease-in-out,filter 2s ease-in-out;
 }
 @media(prefers-reduced-motion:reduce){
   .gallery-slide.is-next.is-dissolving,
