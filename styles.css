@@ -719,3 +719,62 @@ footer .back-to-top span{
   footer .back-to-top{flex-basis:50px;width:50px;height:50px}
   footer .back-to-top span{font-size:32px}
 }
+
+
+/* ===== Dreamy romantic background + tighter section spacing ===== */
+body::after{
+  inset:-5%;
+  opacity:.18;
+  filter:blur(9px);
+  background:
+    linear-gradient(180deg,rgba(248,246,239,.78),rgba(248,246,239,.9)),
+    url("assets/picture/pexels-214377531-33051773.jpg") center 38%/cover no-repeat;
+  animation:none;
+  transform:scale(1.04);
+}
+.invitation,.story,.entourage,.gallery{
+  background-color:rgba(252,250,243,.72);
+  background-image:
+    radial-gradient(ellipse at 12% 18%,rgba(213,189,174,.24),transparent 34%),
+    radial-gradient(ellipse at 88% 76%,rgba(181,194,166,.23),transparent 36%),
+    linear-gradient(180deg,rgba(252,250,243,.76),rgba(248,246,239,.66));
+  backdrop-filter:blur(2px);
+}
+.section{padding-top:78px;padding-bottom:78px}
+.section .intro{margin-top:0}
+.story-grid{margin-top:42px;gap:38px 58px}
+.event-grid,.people-grid,.gallery-grid{margin-top:38px}
+.event-card{background:rgba(252,250,243,.88);backdrop-filter:blur(5px)}
+.people-grid>div{padding:10px 12px 2px}
+.dress-code{
+  background:
+    radial-gradient(ellipse at 10% 15%,rgba(255,255,255,.55),transparent 38%),
+    radial-gradient(ellipse at 90% 90%,rgba(213,189,174,.24),transparent 40%),
+    rgba(233,233,221,.86);
+  backdrop-filter:blur(3px);
+}
+.section{position:relative;isolation:isolate}
+.invitation::before,.story::before,.entourage::before,.gallery::before{
+  content:"✧";
+  position:absolute;
+  z-index:-1;
+  top:34px;
+  right:clamp(22px,8vw,110px);
+  color:rgba(176,154,113,.48);
+  font:48px 'Cormorant Garamond',serif;
+  text-shadow:0 0 24px rgba(213,189,174,.5);
+}
+.story::before{content:"❧";top:42px;right:auto;left:clamp(22px,8vw,110px);font-size:62px}
+.entourage::before{content:"✦"}
+.gallery::before{content:"❀";font-size:54px}
+.hero-photo.photo-frame,.story-photo.photo-frame,.dress-photo.photo-frame,.gallery-grid .photo-frame{
+  box-shadow:0 18px 48px rgba(53,65,57,.14),0 0 0 8px rgba(255,255,255,.18);
+}
+@media(max-width:760px){
+  .section{padding-top:62px;padding-bottom:62px}
+  .story-grid{margin-top:30px;gap:16px}
+  .event-grid,.people-grid,.gallery-grid{margin-top:28px}
+  .invitation::before,.story::before,.entourage::before,.gallery::before{top:18px;right:22px;font-size:36px}
+  .story::before{left:22px;right:auto}
+  body::after{opacity:.12;filter:blur(12px)}
+}
