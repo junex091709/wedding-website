@@ -132,13 +132,13 @@ rsvpForm.addEventListener('submit',async e=>{
   const payload={
     name:String(formData.get('name')||'').trim(),
     attendance:String(formData.get('attendance')||''),
-    guests:Number(formData.get('guests')),
+    guests:1,
     message:String(formData.get('message')||'').trim(),
     submittedAt:new Date().toISOString(),
     event:'Olivia & Alexander — December 12, 2026'
   };
-  if(!payload.name||!payload.attendance||!Number.isInteger(payload.guests)||payload.guests<1||payload.guests>8){
-    rsvpStatus.textContent='Please check your name, attendance, and guest count.';
+  if(!payload.name||!payload.attendance){
+    rsvpStatus.textContent='Please check your name and attendance response.';
     return;
   }
   rsvpSubmit.disabled=true;
