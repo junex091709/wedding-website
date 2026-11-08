@@ -688,21 +688,34 @@ body::after{
 }
 
 
-/* Minimal back-to-top arrow */
+/* Larger, clearly visible circular back-to-top arrow */
 footer .back-to-top{
   display:grid;
   place-items:center;
-  width:38px;
-  height:38px;
-  border:1px solid rgba(101,115,93,.28);
+  flex:0 0 52px;
+  width:52px;
+  height:52px;
+  border:2px solid rgba(101,115,93,.58);
   border-radius:50%;
+  background:rgba(233,236,227,.9);
   color:var(--sage-dark);
-  font:24px/1 'DM Sans',sans-serif;
-  transition:transform .25s ease,background .25s ease,color .25s ease;
+  box-shadow:0 5px 18px rgba(53,65,57,.16),inset 0 0 0 4px rgba(255,255,255,.72);
+  transition:transform .25s ease,background .25s ease,color .25s ease,box-shadow .25s ease;
 }
 footer .back-to-top:hover{
   transform:translateY(-4px);
   background:var(--sage);
   color:#fff;
+  box-shadow:0 9px 22px rgba(53,65,57,.2);
 }
-footer .back-to-top span{font-size:24px;letter-spacing:0;color:inherit}
+footer .back-to-top span{
+  display:block;
+  font:600 34px/1 'DM Sans',sans-serif;
+  letter-spacing:0;
+  color:inherit;
+  transform:translateY(-2px);
+}
+@media(max-width:760px){
+  footer .back-to-top{flex-basis:50px;width:50px;height:50px}
+  footer .back-to-top span{font-size:32px}
+}
