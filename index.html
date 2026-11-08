@@ -56,5 +56,18 @@
 <dialog id="rsvp-dialog"><form id="rsvp-form"><button type="button" class="dialog-close" aria-label="Close">×</button><p class="eyebrow">OLIVIA & ALEXANDER</p><h2>Kindly RSVP</h2><label>Your full name<input name="name" required placeholder="Enter your name"></label><label>Will you attend?<select name="attendance" required><option value="">Please select</option><option>Joyfully accepts</option><option>Regretfully declines</option></select></label><label>Message (optional)<textarea name="message" rows="3" placeholder="Leave a note for the couple"></textarea></label><button class="submit-rsvp" type="submit">SUBMIT RSVP</button><p class="form-note" id="rsvp-status" role="status" aria-live="polite">Your response will be sent securely to the couple.</p></form></dialog>
 <dialog id="guest-verify-dialog" aria-labelledby="guest-verify-title"><form id="guest-verify-form"><button type="button" class="dialog-close guest-verify-close" aria-label="Close">×</button><p class="eyebrow">OLIVIA & ALEXANDER</p><h2 id="guest-verify-title">Your Invited Name</h2><p class="verify-intro">Please enter the name on your invitation so we can verify your guest list entry.</p><label for="guest-verify-name">YOUR FULL NAME<input id="guest-verify-name" name="guestName" type="text" autocomplete="name" placeholder="Enter your full name" maxlength="100" required></label><button class="submit-rsvp" id="verify-guest-submit" type="submit">VERIFY NAME & CONTINUE</button><p class="form-note" id="guest-verify-status" role="status" aria-live="polite"></p></form></dialog>
 <dialog id="map-dialog" class="map-dialog" aria-labelledby="map-dialog-title"><div class="map-dialog-panel"><div class="map-dialog-heading"><div><p class="eyebrow">FIND YOUR WAY</p><h2 id="map-dialog-title">Wedding Location</h2></div><button type="button" class="map-dialog-close" aria-label="Close map">×</button></div><iframe id="wedding-map-frame" title="Wedding location map" loading="eager" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe><a id="map-directions-link" class="map-directions-link" href="#" target="_blank" rel="noopener">OPEN IN GOOGLE MAPS ↗</a><p class="map-dialog-note">If the map preview is unavailable, use the Google Maps link above.</p></div></dialog>
-<script src="script.js?v=mobile-map-envelope-fix-10"></script>
+
+<dialog id="gallery-lightbox" class="gallery-lightbox" aria-label="Wedding photo slideshow">
+  <div class="lightbox-panel">
+    <button type="button" class="lightbox-close" aria-label="Close slideshow">×</button>
+    <button type="button" class="lightbox-nav lightbox-prev" aria-label="Previous photo">‹</button>
+    <figure class="lightbox-figure">
+      <img id="lightbox-image" src="" alt="">
+      <figcaption><span id="lightbox-caption"></span><span id="lightbox-counter"></span></figcaption>
+    </figure>
+    <button type="button" class="lightbox-nav lightbox-next" aria-label="Next photo">›</button>
+  </div>
+</dialog>
+
+<script src="script.js?v=gallery-lightbox-1"></script>
 </body></html>
