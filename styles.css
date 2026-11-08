@@ -1102,3 +1102,33 @@ body::after{
 @media(prefers-reduced-motion:reduce){
   .gallery-slide.is-active.is-fading-out{transition:none}
 }
+
+
+/* ===== Gradual 1.2-second image-to-image dissolve ===== */
+.gallery-slides{position:relative;background:#000;isolation:isolate}
+.gallery-slide{
+  opacity:0;
+  visibility:hidden;
+  transition:none;
+  z-index:0;
+}
+.gallery-slide.is-active{
+  opacity:1;
+  visibility:visible;
+  z-index:2;
+  transition:none;
+}
+.gallery-slide.is-next{
+  opacity:1;
+  visibility:visible;
+  z-index:1;
+}
+.gallery-slide.is-active.is-fading-out{
+  opacity:0;
+  visibility:visible;
+  z-index:2;
+  transition:opacity 1.2s ease-in-out;
+}
+@media(prefers-reduced-motion:reduce){
+  .gallery-slide.is-active.is-fading-out{transition:none}
+}
