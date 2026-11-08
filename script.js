@@ -309,11 +309,14 @@ function showGallerySlide(index){
   if(nextIndex===activeGalleryIndex)return;
   if(galleryFadeTimer)window.clearTimeout(galleryFadeTimer);
   const currentSlide=gallerySlides[activeGalleryIndex];
+  const nextSlide=gallerySlides[nextIndex];
+  gallerySlides.forEach(slide=>slide.classList.remove('is-next','is-fading-out'));
+  nextSlide.classList.add('is-next');
   currentSlide.classList.add('is-fading-out');
   galleryFadeTimer=window.setTimeout(()=>{
     setGallerySlide(nextIndex);
     galleryFadeTimer=null;
-  },3000);
+  },1200);
 }
 function startGalleryAutoSwipe(){
   stopGalleryAutoSwipe();
