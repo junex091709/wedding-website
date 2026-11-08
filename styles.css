@@ -1104,36 +1104,41 @@ body::after{
 }
 
 
-/* ===== True 1.2-second cross-dissolve between gallery photos ===== */
+/* ===== 1.2-second cross-dissolve with a soft cinematic blur ===== */
 .gallery-slides{position:relative;background:#000;isolation:isolate}
 .gallery-slide{
   opacity:0;
   visibility:hidden;
   transition:none;
   z-index:0;
+  filter:blur(0);
 }
 .gallery-slide.is-active{
   opacity:1;
   visibility:visible;
   z-index:2;
   transition:none;
+  filter:blur(0);
 }
-/* The incoming photo begins transparent, then fades in over the outgoing photo. */
+/* Incoming photo sharpens as it fades in over the outgoing photo. */
 .gallery-slide.is-next{
   opacity:0;
   visibility:visible;
   z-index:3;
+  filter:blur(9px);
 }
 .gallery-slide.is-next.is-dissolving{
   opacity:1;
-  transition:opacity 1.2s ease-in-out;
+  filter:blur(0);
+  transition:opacity 1.2s ease-in-out,filter 1.2s ease-in-out;
 }
-/* At the same time, the outgoing photo fades away underneath it. */
+/* Outgoing photo softly blurs as it fades away. */
 .gallery-slide.is-active.is-fading-out{
   opacity:0;
   visibility:visible;
   z-index:2;
-  transition:opacity 1.2s ease-in-out;
+  filter:blur(9px);
+  transition:opacity 1.2s ease-in-out,filter 1.2s ease-in-out;
 }
 @media(prefers-reduced-motion:reduce){
   .gallery-slide.is-next.is-dissolving,
