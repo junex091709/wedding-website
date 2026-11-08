@@ -1432,3 +1432,12 @@ footer{
 @media(prefers-reduced-motion:reduce){
   .nav a:not(.nav-rsvp)::after{transition:none}
 }
+
+
+/* Distinguish the invitation details from the hero photo treatment */
+.invitation{
+  background:
+    radial-gradient(ellipse at 12% 18%,rgba(213,189,174,.18),transparent 34%),
+    radial-gradient(ellipse at 88% 82%,rgba(113,128,106,.10),transparent 36%),
+    linear-gradient(135deg,#fffdf7 0%,#f4f1e7 52%,#fbf8f0 100%) !important;
+}
