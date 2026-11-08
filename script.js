@@ -276,3 +276,50 @@ if(mapDialog){
 }
 
 
+
+
+// ===== Click-to-open wedding gallery slideshow =====
+const galleryDialog=document.getElementById('gallery-lightbox');
+const lightboxImage=document.getElementById('lightbox-image');
+const lightboxCaption=document.getElementById('lightbox-caption');
+const lightboxCounter=document.getElementById('lightbox-counter');
+const galleryImages=[...document.querySelectorAll('.gallery-grid img')];
+let activeGalleryIndex=0;
+function showGalleryImage(index){
+  if(!galleryImages.length)return;
+  activeGalleryIndex=(index+galleryImages.length)%galleryImages.length;
+  const source=galleryImages[activeGalleryIndex];
+  lightboxImage.src=source.currentSrc||source.src;
+  lightboxImage.alt=source.alt||'Wedding gallery photo';
+  lightboxCaption.textContent=source.alt||'A memory to cherish';
+  lightboxCounter.textContent=(activeGalleryIndex+1)+' / '+galleryImages.length;
+}
+function openGalleryAt(index){
+  showGalleryImage(index);
+  if(!galleryDialog.open)galleryDialog.showModal();
+}
+galleryImages.forEach((img,index)=>{
+  const frame=img.closest('.photo-placeholder')||img;
+  frame.classList.add('gallery-photo-clickable');
+  frame.setAttribute('role','button');
+  frame.setAttribute('tabindex','0');
+  frame.setAttribute('aria-label','Open photo '+(index+1)+' in slideshow');
+  frame.addEventListener('click',()=>openGalleryAt(index));
+  frame.addEventListener('keydown',event=>{
+    if(event.key==='Enter'||event.key===' '){event.preventDefault();openGalleryAt(index);}
+  });
+});
+document.querySelector('.lightbox-close')?.addEventListener('click',()=>galleryDialog.close());
+document.querySelector('.lightbox-prev')?.addEventListener('click',()=>showGalleryImage(activeGalleryIndex-1));
+document.querySelector('.lightbox-next')?.addEventListener('click',()=>showGalleryImage(activeGalleryIndex+1));
+galleryDialog?.addEventListener('click',event=>{if(event.target===galleryDialog)galleryDialog.close();});
+galleryDialog?.addEventListener('keydown',event=>{
+  if(event.key==='ArrowRight'){event.preventDefault();showGalleryImage(activeGalleryIndex+1);}
+  if(event.key==='ArrowLeft'){event.preventDefault();showGalleryImage(activeGalleryIndex-1);}
+});
+let galleryTouchStartX=0;
+galleryDialog?.addEventListener('touchstart',event=>{galleryTouchStartX=event.changedTouches[0].screenX;},{passive:true});
+galleryDialog?.addEventListener('touchend',event=>{
+  const delta=event.changedTouches[0].screenX-galleryTouchStartX;
+  if(Math.abs(delta)>45)showGalleryImage(activeGalleryIndex+(delta<0?1:-1));
+},{passive:true});
