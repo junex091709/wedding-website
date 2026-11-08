@@ -216,3 +216,21 @@ envelopeButton.addEventListener('click',()=>{
   },3450);
 });
 
+// ===== Clickable wedding day map cards =====
+document.querySelectorAll('.event-card.map-clickable').forEach(card=>{
+  const openMap=()=>{
+    const mapUrl=card.dataset.mapUrl;
+    if(mapUrl)window.open(mapUrl,'_blank','noopener,noreferrer');
+  };
+  card.addEventListener('click',event=>{
+    if(event.target.closest('a'))return;
+    openMap();
+  });
+  card.addEventListener('keydown',event=>{
+    if(event.key==='Enter'||event.key===' '){
+      event.preventDefault();
+      openMap();
+    }
+  });
+});
+
