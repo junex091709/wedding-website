@@ -282,3 +282,65 @@ body.envelope-locked{overflow:hidden}
   .gallery-grid .photo-frame{min-height:210px}
   .gallery-grid .photo-frame:nth-child(3){min-height:230px}
 }
+
+
+/* ===== Photo framing: keep the people visible ===== */
+.photo-frame{
+  position:relative;
+  overflow:hidden;
+  background:#e8e5da;
+}
+.photo-frame>img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:50% 24%;
+}
+.hero-photo.photo-frame{
+  width:min(100%,420px);
+  height:540px;
+}
+.hero-photo.photo-frame>img{object-position:50% 22%}
+.story-grid .story-photo.photo-frame{
+  width:100%;
+  max-width:430px;
+  height:480px;
+  min-height:0;
+  justify-self:center;
+}
+.story-grid .story-photo.photo-frame>img{object-position:50% 22%}
+.dress-photo.photo-frame{
+  width:100%;
+  max-width:430px;
+  height:480px;
+  justify-self:center;
+}
+.dress-photo.photo-frame>img{object-position:50% 22%}
+.gallery-grid{
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  align-items:center;
+  gap:20px;
+}
+.gallery-grid .photo-frame,
+.gallery-grid .photo-frame:nth-child(2){
+  width:100%;
+  height:390px;
+  min-height:0;
+  margin:0;
+}
+.gallery-grid .photo-frame>img{object-position:50% 22%}
+@media(max-width:760px){
+  .hero-photo.photo-frame{height:390px;width:min(100%,330px)}
+  .story-grid .story-photo.photo-frame{height:390px;max-width:340px;min-height:0}
+  .dress-photo.photo-frame{height:390px;max-width:340px}
+  .gallery-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+  .gallery-grid .photo-frame,
+  .gallery-grid .photo-frame:nth-child(2){height:270px;min-height:0}
+  .gallery-grid .photo-frame:nth-child(3){grid-column:1/-1;height:310px;min-height:0}
+}
+@media(max-width:380px){
+  .hero-photo.photo-frame{height:340px}
+  .story-grid .story-photo.photo-frame,.dress-photo.photo-frame{height:340px}
+  .gallery-grid .photo-frame,.gallery-grid .photo-frame:nth-child(2){height:230px}
+  .gallery-grid .photo-frame:nth-child(3){height:270px}
+}
