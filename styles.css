@@ -265,3 +265,20 @@ body.envelope-locked{overflow:hidden}
   transition-delay:2.65s;
   pointer-events:none;
 }
+
+
+/* ===== Real photos from assets/picture ===== */
+.photo-frame{background:#e5e4d9}
+.photo-frame::before,.photo-frame::after{display:none}
+.photo-frame>img{position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:cover;object-position:center}
+.hero-photo.photo-frame>img{object-position:center 42%}
+.story-photo.photo-frame>img{object-position:center}
+.dress-photo.photo-frame>img{object-position:center}
+.gallery-grid .photo-frame>img{object-position:center}
+@media(max-width:760px){
+  .hero-photo.photo-frame>img{object-position:center 38%}
+  .story-photo.photo-frame{min-height:250px}
+  .dress-photo.photo-frame{height:260px}
+  .gallery-grid .photo-frame{min-height:210px}
+  .gallery-grid .photo-frame:nth-child(3){min-height:230px}
+}
