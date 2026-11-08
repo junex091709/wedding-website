@@ -1226,3 +1226,209 @@ body{background:#f7f5ed}
 @media(max-width:760px){
   .invitation,.story,.entourage,.dress-code,.gallery{background-attachment:scroll;background-position:center center}
 }
+
+
+/* ===== Wedding website visual refinement ===== */
+:root{
+  --paper:#fffdf7;
+  --cream:#f5f2e8;
+  --sage:#71806a;
+  --sage-dark:#465544;
+  --ink:#344035;
+  --gold:#b59b70;
+}
+body{
+  background:var(--cream);
+  color:var(--ink);
+  letter-spacing:.08px;
+}
+.site-header{
+  background:rgba(255,253,247,.94);
+  backdrop-filter:blur(14px);
+  border-bottom:1px solid rgba(176,154,113,.18);
+}
+.brand{letter-spacing:1px}
+.nav{gap:clamp(18px,3vw,38px)}
+.nav a:not(.nav-rsvp){position:relative}
+.nav a:not(.nav-rsvp)::after{
+  content:"";
+  position:absolute;
+  left:0;right:100%;bottom:-7px;
+  height:1px;background:var(--gold);
+  transition:right .3s ease;
+}
+.nav a:not(.nav-rsvp):hover::after{right:0}
+.nav-rsvp{
+  border:1px solid rgba(255,255,255,.3);
+  box-shadow:0 5px 16px rgba(48,65,48,.12);
+}
+.hero{
+  min-height:680px;
+  background:
+    linear-gradient(115deg,rgba(48,62,48,.94),rgba(76,91,69,.88)),
+    url("assets/background/wedding-backgrounds/wedding-bg-1.webp") center/cover no-repeat;
+  padding-top:82px;padding-bottom:82px;
+}
+.hero-copy{max-width:590px;justify-self:center}
+.hero h1{
+  font-size:clamp(70px,8vw,118px);
+  letter-spacing:-2px;
+  text-shadow:0 8px 30px rgba(0,0,0,.12);
+}
+.hero-photo.photo-frame{
+  border-radius:48% 48% 3px 3px;
+  border:7px solid rgba(255,253,247,.8);
+  box-shadow:0 25px 65px rgba(20,31,22,.28),0 0 0 1px rgba(255,255,255,.35);
+}
+.section{
+  padding-top:96px;
+  padding-bottom:96px;
+}
+.section h2,.dress-code h2,.rsvp h2{
+  color:#3f4b3e;
+  letter-spacing:-.7px;
+}
+.eyebrow{letter-spacing:2.8px}
+.intro{line-height:1.95}
+.invitation,.story,.entourage,.gallery{
+  position:relative;
+  background-blend-mode:normal;
+}
+.invitation::after,.story::after,.entourage::after,.gallery::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:radial-gradient(ellipse at center,rgba(255,253,247,.12),rgba(255,253,247,.28));
+  z-index:-1;
+}
+.invitation{border-bottom:1px solid rgba(176,154,113,.15)}
+.signature{font-size:44px}
+.date-lockup{
+  width:max-content;
+  margin:28px auto 0;
+  padding:10px 30px;
+  border-top:1px solid rgba(176,154,113,.45);
+  border-bottom:1px solid rgba(176,154,113,.45);
+}
+.countdown{
+  background:linear-gradient(115deg,#4d5d49,#718069);
+  position:relative;
+  isolation:isolate;
+}
+.countdown::before,.rsvp::before{
+  content:"";
+  position:absolute;
+  inset:14px;
+  border:1px solid rgba(245,239,220,.22);
+  pointer-events:none;
+}
+.countdown .eyebrow{color:#e8e2d2}
+.count-grid{gap:clamp(28px,7vw,100px)}
+.count-grid strong{font-size:60px}
+.story-grid{gap:54px 70px}
+.story-grid .photo-frame,.dress-photo.photo-frame{
+  border:6px solid rgba(255,253,247,.88);
+  box-shadow:0 18px 48px rgba(53,65,57,.16);
+}
+.story-grid article{
+  padding:30px clamp(12px,3vw,42px);
+}
+.story-grid article .eyebrow{margin-bottom:12px}
+.story-grid h3{font-size:43px;color:#485646}
+.details{
+  background:
+    linear-gradient(rgba(235,236,225,.91),rgba(235,236,225,.94)),
+    url("assets/background/wedding-backgrounds/wedding-bg-1.webp") center/cover fixed;
+}
+.event-card{
+  border:1px solid rgba(176,154,113,.24);
+  box-shadow:0 10px 30px rgba(53,65,57,.055);
+  border-radius:3px;
+  padding:44px 26px 38px;
+}
+.event-card .eyebrow{margin-bottom:12px}
+.event-card h3{color:#485646}
+.event-card .map-click-hint{
+  display:inline-block;
+  margin-top:12px;
+  padding:8px 13px;
+  border:1px solid rgba(101,115,93,.25);
+  color:var(--sage-dark);
+  font-size:9px;
+  letter-spacing:1.4px;
+}
+.entourage{
+  background:
+    linear-gradient(rgba(250,248,241,.78),rgba(250,248,241,.86)),
+    url("assets/background/wedding-backgrounds/wedding-bg-3.webp") center 45%/cover no-repeat;
+}
+.people-grid{gap:28px 50px}
+.people-grid>div{
+  padding:22px 16px 12px;
+  background:rgba(255,253,247,.54);
+  border:1px solid rgba(176,154,113,.18);
+}
+.people-grid p{color:#4b5947}
+.dress-code{
+  padding-top:88px;padding-bottom:88px;
+  background:
+    linear-gradient(105deg,rgba(232,233,221,.88),rgba(246,242,231,.9)),
+    url("assets/background/wedding-backgrounds/wedding-bg-2.webp") center/cover no-repeat;
+}
+.dress-code>div:last-child{padding:15px 10px}
+.swatches{gap:12px}
+.swatches i{width:42px;height:42px;box-shadow:0 3px 9px rgba(35,45,35,.1)}
+.gallery{
+  background:
+    linear-gradient(rgba(250,248,241,.84),rgba(250,248,241,.9)),
+    url("assets/background/wedding-backgrounds/wedding-bg-3.webp") center/cover no-repeat;
+}
+.gallery-carousel{margin-top:44px}
+.gallery-slides{
+  border:7px solid rgba(255,253,247,.9);
+  box-shadow:0 20px 55px rgba(42,54,43,.16);
+}
+.gallery-carousel-controls{margin-top:20px}
+.gallery-dot{width:9px;height:9px;background:#c5c4b5}
+.gallery-dot.is-active{background:var(--sage);transform:scale(1.25)}
+.rsvp{
+  position:relative;
+  isolation:isolate;
+  background:
+    linear-gradient(rgba(65,81,62,.94),rgba(65,81,62,.96)),
+    url("assets/background/wedding-backgrounds/wedding-bg-1.webp") center/cover no-repeat;
+}
+.rsvp h2{color:#fffdf7}
+.rsvp-button{
+  min-width:190px;
+  border:1px solid rgba(255,255,255,.55);
+  background:#fffdf7;
+  box-shadow:0 10px 25px rgba(20,30,21,.13);
+}
+footer{
+  border-top:1px solid rgba(176,154,113,.2);
+  background:#fffdf7;
+}
+@media(max-width:760px){
+  .hero{min-height:0;padding:55px 22px 62px;gap:32px}
+  .hero-copy{order:2}
+  .hero-photo{order:1}
+  .hero h1{font-size:clamp(62px,15vw,78px);letter-spacing:-1px}
+  .section{padding:70px 22px}
+  .story-grid{gap:18px}
+  .story-grid article{padding:18px 8px 28px}
+  .story-grid h3{font-size:36px}
+  .details{background-attachment:scroll}
+  .event-card{padding:32px 20px}
+  .people-grid{gap:14px}
+  .people-grid>div{padding:17px 8px 8px}
+  .people-grid small{font-size:8px;letter-spacing:1px}
+  .people-grid p{font-size:22px}
+  .dress-code{padding:58px 22px}
+  .gallery-slides{border-width:4px}
+  .rsvp{padding:68px 24px 76px}
+}
+@media(prefers-reduced-motion:reduce){
+  .nav a:not(.nav-rsvp)::after{transition:none}
+}
