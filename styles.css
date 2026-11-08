@@ -778,3 +778,63 @@ body::after{
   .story::before{left:22px;right:auto}
   body::after{opacity:.12;filter:blur(12px)}
 }
+
+
+/* ===== Soft watercolor botanicals: subtle, section-by-section ===== */
+.invitation,.story,.entourage,.gallery{
+  background-repeat:no-repeat,no-repeat;
+  background-size:310px auto,cover;
+}
+.invitation{
+  background-image:
+    url("assets/floral-watercolor.svg"),
+    radial-gradient(ellipse at 12% 18%,rgba(213,189,174,.24),transparent 34%),
+    radial-gradient(ellipse at 88% 76%,rgba(181,194,166,.23),transparent 36%),
+    linear-gradient(180deg,rgba(252,250,243,.76),rgba(248,246,239,.66));
+  background-position:right -55px top -75px,center,center,center;
+}
+.story{
+  background-image:
+    url("assets/floral-watercolor.svg"),
+    radial-gradient(ellipse at 12% 18%,rgba(213,189,174,.2),transparent 34%),
+    linear-gradient(180deg,rgba(252,250,243,.8),rgba(248,246,239,.72));
+  background-position:left -95px bottom -145px,center,center;
+  background-size:340px auto,cover,cover;
+}
+.entourage{
+  background-image:
+    url("assets/floral-watercolor.svg"),
+    radial-gradient(ellipse at 88% 76%,rgba(213,189,174,.2),transparent 36%),
+    linear-gradient(180deg,rgba(252,250,243,.82),rgba(248,246,239,.7));
+  background-position:right -90px bottom -155px,center,center;
+  background-size:320px auto,cover,cover;
+}
+.gallery{
+  background-image:
+    url("assets/floral-watercolor.svg"),
+    radial-gradient(ellipse at 50% 100%,rgba(181,194,166,.16),transparent 58%),
+    linear-gradient(180deg,rgba(252,250,243,.8),rgba(248,246,239,.7));
+  background-position:left -100px top -160px,center,center;
+  background-size:300px auto,cover,cover;
+}
+.dress-code{
+  background-image:
+    url("assets/floral-watercolor.svg"),
+    radial-gradient(ellipse at 10% 15%,rgba(255,255,255,.55),transparent 38%),
+    radial-gradient(ellipse at 90% 90%,rgba(213,189,174,.24),transparent 40%),
+    linear-gradient(120deg,rgba(233,233,221,.92),rgba(245,241,231,.9));
+  background-repeat:no-repeat;
+  background-position:right -115px center;
+  background-size:330px auto;
+}
+@media(max-width:760px){
+  .invitation,.story,.entourage,.gallery{background-size:190px auto,cover,cover}
+  .invitation{background-position:right -75px top -38px,center,center,center}
+  .story{background-position:left -105px bottom -85px,center,center}
+  .entourage{background-position:right -105px bottom -95px,center,center}
+  .gallery{background-position:left -105px top -85px,center,center}
+  .dress-code{background-position:right -145px bottom -75px;background-size:240px auto}
+}
+@media(prefers-reduced-motion:reduce){
+  .invitation,.story,.entourage,.gallery,.dress-code{background-attachment:scroll}
+}
