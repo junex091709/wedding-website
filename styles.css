@@ -994,3 +994,15 @@ body::after{
 @media(prefers-reduced-motion:reduce){
  .gallery-slide,.gallery-photo-open img,.gallery-dot{transition:none}
 }
+
+
+/* ===== Cinematic, compact 16:9 wedding gallery ===== */
+.gallery-carousel{width:min(100%,760px);max-width:760px;margin:38px auto 0}
+.gallery-slides{aspect-ratio:16/9;min-height:0;height:auto}
+.gallery-slide,.gallery-photo-open,.gallery-photo-open img{height:100%;min-height:0}
+.gallery-photo-open img{aspect-ratio:16/9;object-fit:cover}
+@media(max-width:760px){
+  .gallery-carousel{width:100%;margin-top:26px}
+  .gallery-slides{aspect-ratio:16/9;min-height:0}
+  .gallery-slide,.gallery-photo-open,.gallery-photo-open img{height:100%;min-height:0}
+}
