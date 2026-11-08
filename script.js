@@ -2,7 +2,31 @@
 const weddingDate = new Date('2026-12-12T14:00:00+08:00').getTime();
 function updateCountdown(){const diff=Math.max(0,weddingDate-Date.now());const values={days:Math.floor(diff/86400000),hours:Math.floor(diff/3600000)%24,minutes:Math.floor(diff/60000)%60,seconds:Math.floor(diff/1000)%60};for(const [id,value] of Object.entries(values)){const el=document.getElementById(id);if(el)el.textContent=String(value).padStart(id==='days'?3:2,'0')}}
 updateCountdown();setInterval(updateCountdown,1000);
-const toggle=document.querySelector('.menu-toggle'),nav=document.querySelector('.nav');toggle.addEventListener('click',()=>{const open=nav.classList.toggle('open');toggle.setAttribute('aria-expanded',String(open))});nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{nav.classList.remove('open');toggle.setAttribute('aria-expanded','false')}));
+// ===== Accessible, touch-friendly mobile navigation =====
+const toggle=document.querySelector('.menu-toggle');
+const nav=document.querySelector('.nav');
+function closeMobileMenu(){
+  if(!toggle||!nav)return;
+  closeMobileMenu();
+  toggle.setAttribute('aria-label','Open navigation menu');
+}
+if(toggle&&nav){
+  toggle.addEventListener('click',event=>{
+    event.preventDefault();
+    event.stopPropagation();
+    const isOpen=nav.classList.toggle('open');
+    toggle.setAttribute('aria-expanded',String(isOpen));
+    toggle.setAttribute('aria-label',isOpen?'Close navigation menu':'Open navigation menu');
+  });
+  nav.querySelectorAll('a').forEach(link=>link.addEventListener('click',closeMobileMenu));
+  document.addEventListener('click',event=>{
+    if(nav.classList.contains('open')&&!nav.contains(event.target)&&!toggle.contains(event.target))closeMobileMenu();
+  });
+  document.addEventListener('keydown',event=>{
+    if(event.key==='Escape')closeMobileMenu();
+  });
+}
+
 const dialog=document.getElementById('rsvp-dialog');
 const guestVerifyDialog=document.getElementById('guest-verify-dialog');
 const guestVerifyForm=document.getElementById('guest-verify-form');
@@ -216,21 +240,37 @@ envelopeButton.addEventListener('click',()=>{
   },3450);
 });
 
-// ===== Clickable wedding day map cards =====
+// ===== In-page wedding location map popup =====
+const mapDialog=document.getElementById('map-dialog');
+const mapFrame=document.getElementById('wedding-map-frame');
+const mapTitle=document.getElementById('map-dialog-title');
+function openWeddingMap(card){
+  if(!mapDialog||!mapFrame)return;
+  const location=card.dataset.mapQuery;
+  if(!location)return;
+  mapTitle.textContent=card.querySelector('h3')?.textContent||'Wedding Location';
+  mapFrame.src='https://www.google.com/maps?q='+encodeURIComponent(location)+'&output=embed';
+  mapDialog.showModal();
+}
 document.querySelectorAll('.event-card.map-clickable').forEach(card=>{
-  const openMap=()=>{
-    const mapUrl=card.dataset.mapUrl;
-    if(mapUrl)window.open(mapUrl,'_blank','noopener,noreferrer');
-  };
   card.addEventListener('click',event=>{
-    if(event.target.closest('a'))return;
-    openMap();
+    event.preventDefault();
+    openWeddingMap(card);
   });
   card.addEventListener('keydown',event=>{
     if(event.key==='Enter'||event.key===' '){
       event.preventDefault();
-      openMap();
+      openWeddingMap(card);
     }
   });
 });
+const mapClose=document.querySelector('.map-dialog-close');
+if(mapClose)mapClose.addEventListener('click',()=>mapDialog.close());
+if(mapDialog){
+  mapDialog.addEventListener('click',event=>{
+    if(event.target===mapDialog)mapDialog.close();
+  });
+  mapDialog.addEventListener('close',()=>{mapFrame.src='about:blank';});
+}
+
 
