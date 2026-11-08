@@ -259,6 +259,12 @@ document.querySelectorAll('.event-card.map-clickable').forEach(card=>{
     event.preventDefault();
     openWeddingMap(card);
   });
+  card.addEventListener('keydown',event=>{
+    if(event.key==='Enter'||event.key===' '){
+      event.preventDefault();
+      openWeddingMap(card);
+    }
+  });
 });
 const mapClose=document.querySelector('.map-dialog-close');
 if(mapClose)mapClose.addEventListener('click',()=>mapDialog.close());
