@@ -1050,3 +1050,21 @@ body::after{
 }
 .gallery-photo-open img{transition:transform .5s ease}
 @media(max-width:760px){.gallery-slides{border:0}}
+
+
+/* ===== Smooth cross-fade between gallery photos ===== */
+.gallery-slides{isolation:isolate}
+.gallery-slide{
+  opacity:0;
+  visibility:hidden;
+  transition:opacity 1s ease-in-out,visibility 1s ease-in-out;
+  transform:none;
+}
+.gallery-slide.is-active{
+  opacity:1;
+  visibility:visible;
+  transform:none;
+}
+@media(prefers-reduced-motion:reduce){
+  .gallery-slide{transition:none}
+}
