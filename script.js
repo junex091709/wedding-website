@@ -195,7 +195,6 @@ const envelopeScreen=document.getElementById('envelope-screen');
 const envelopeButton=document.getElementById('open-envelope');
 const guestName=document.getElementById('guest-name');
 const weddingMusic=document.getElementById('wedding-music');
-const musicToggle=document.getElementById('music-toggle');
 const guestParam=new URLSearchParams(window.location.search).get('guest');
 if(guestParam){
   const safeGuest=guestParam.trim().slice(0,80);
@@ -205,35 +204,15 @@ if(guestParam){
     if(rsvpNameInput)rsvpNameInput.value=safeGuest;
   }
 }
-let musicStarted=false;
-function updateMusicButton(){
-  const playing=!weddingMusic.paused&&!weddingMusic.muted;
-  const label=playing?'MUSIC ON':(weddingMusic.paused?'PLAY MUSIC':'MUSIC OFF');
-  musicToggle.classList.toggle('is-muted',!playing);
-  musicToggle.querySelector('.music-label').textContent=label;
-  musicToggle.setAttribute('aria-label',playing?'Mute background music':'Play background music');
-}
 envelopeButton.addEventListener('click',()=>{
   if(envelopeScreen.classList.contains('is-opening'))return;
   envelopeScreen.classList.add('is-opening');
   weddingMusic.volume=.32;
-  weddingMusic.play().then(()=>{musicStarted=true;musicToggle.hidden=false;updateMusicButton();}).catch(()=>{
-    musicToggle.hidden=false;
-    musicToggle.querySelector('.music-label').textContent='PLAY MUSIC';
-    updateMusicButton();
-  });
+  weddingMusic.play().catch(()=>{});
   window.setTimeout(()=>{
     envelopeScreen.classList.add('is-closing');
     document.body.classList.remove('envelope-locked');
     window.setTimeout(()=>{envelopeScreen.hidden=true;},1050);
   },3450);
 });
-musicToggle.addEventListener('click',()=>{
-  if(weddingMusic.paused){
-    weddingMusic.play().then(()=>{musicStarted=true;updateMusicButton();}).catch(()=>{musicToggle.querySelector('.music-label').textContent='TRY AGAIN';});
-  }else{
-    weddingMusic.muted=!weddingMusic.muted;
-    updateMusicButton();
-  }
-});
-weddingMusic.addEventListener('ended',updateMusicButton);
+
