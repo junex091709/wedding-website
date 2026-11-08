@@ -1030,3 +1030,23 @@ body::after{
 .gallery-photo-open{position:relative;z-index:1}
 .gallery-photo-open img{filter:saturate(.96) contrast(1.03)}
 @media(max-width:760px){.gallery-slides{border:0}}
+
+
+/* ===== Borderless cinematic gallery with soft vignette ===== */
+.gallery-slides{
+  border:0;
+  box-shadow:0 16px 42px rgba(35,45,37,.16);
+  transition:box-shadow .5s ease;
+}
+.gallery-slide{transition:opacity .5s ease,transform .5s ease,visibility .5s}
+.gallery-photo-open{position:relative;overflow:hidden}
+.gallery-photo-open::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:radial-gradient(ellipse at center,rgba(0,0,0,0) 42%,rgba(15,22,17,.12) 72%,rgba(10,16,12,.48) 100%);
+  transition:opacity .5s ease;
+}
+.gallery-photo-open img{transition:transform .5s ease}
+@media(max-width:760px){.gallery-slides{border:0}}
