@@ -1144,3 +1144,57 @@ body::after{
   .gallery-slide.is-next.is-dissolving,
   .gallery-slide.is-active.is-fading-out{transition:none}
 }
+
+
+/* ===== Full-page romantic photo background slideshow ===== */
+.background-slideshow{
+  position:fixed;
+  inset:0;
+  z-index:-2;
+  overflow:hidden;
+  pointer-events:none;
+  background:#f7f5ed;
+}
+.background-slide{
+  position:absolute;
+  inset:0;
+  background-position:center;
+  background-size:cover;
+  background-repeat:no-repeat;
+  opacity:0;
+  transform:scale(1.035);
+  animation: weddingBackgroundFade 24s ease-in-out infinite;
+}
+.background-slide::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(180deg,rgba(250,248,241,.78),rgba(250,248,241,.86));
+}
+.background-slide-one{
+  background-image:url("assets/background/wedding-backgrounds/wedding-bg-1.webp");
+  animation-delay:0s;
+}
+.background-slide-two{
+  background-image:url("assets/background/wedding-backgrounds/wedding-bg-2.webp");
+  animation-delay:8s;
+}
+.background-slide-three{
+  background-image:url("assets/background/wedding-backgrounds/wedding-bg-3.webp");
+  animation-delay:16s;
+}
+@keyframes weddingBackgroundFade{
+  0%,5%{opacity:0}
+  10%,29%{opacity:1}
+  36%,100%{opacity:0}
+}
+@media(max-width:760px){
+  .background-slide{background-position:center center}
+  .background-slide::after{
+    background:linear-gradient(180deg,rgba(250,248,241,.82),rgba(250,248,241,.9));
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  .background-slide{animation:none;opacity:0}
+  .background-slide-one{opacity:1}
+}
