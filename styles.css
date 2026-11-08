@@ -1198,3 +1198,31 @@ body::after{
   .background-slide{animation:none;opacity:0}
   .background-slide-one{opacity:1}
 }
+
+
+/* ===== Static wedding photo backgrounds — no slideshow ===== */
+body{background:#f7f5ed}
+.background-slideshow,.background-slide{display:none!important}
+.invitation{
+  background:linear-gradient(rgba(250,248,241,.58),rgba(250,248,241,.72)),
+  url("assets/background/wedding-backgrounds/wedding-bg-1.webp") center 42%/cover no-repeat;
+}
+.story{
+  background:linear-gradient(rgba(250,248,241,.56),rgba(250,248,241,.68)),
+  url("assets/background/wedding-backgrounds/wedding-bg-2.webp") center 48%/cover no-repeat;
+}
+.entourage{
+  background:linear-gradient(rgba(250,248,241,.72),rgba(250,248,241,.82)),
+  url("assets/background/wedding-backgrounds/wedding-bg-3.webp") center 45%/cover no-repeat;
+}
+.dress-code{
+  background:linear-gradient(rgba(233,233,221,.58),rgba(233,233,221,.72)),
+  url("assets/background/wedding-backgrounds/wedding-bg-2.webp") center 52%/cover no-repeat;
+}
+.gallery{
+  background:linear-gradient(rgba(250,248,241,.62),rgba(250,248,241,.76)),
+  url("assets/background/wedding-backgrounds/wedding-bg-3.webp") center 48%/cover no-repeat;
+}
+@media(max-width:760px){
+  .invitation,.story,.entourage,.dress-code,.gallery{background-attachment:scroll;background-position:center center}
+}
