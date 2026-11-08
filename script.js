@@ -285,6 +285,7 @@ const lightboxCaption=document.getElementById('lightbox-caption');
 const gallerySlides=[...document.querySelectorAll('.gallery-slide')];
 const galleryDots=[...document.querySelectorAll('.gallery-dot')];
 let activeGalleryIndex=0;
+let galleryAutoTimer=null;
 function showGallerySlide(index){
   if(!gallerySlides.length)return;
   activeGalleryIndex=(index+gallerySlides.length)%gallerySlides.length;
@@ -300,12 +301,22 @@ function showGallerySlide(index){
     else dot.removeAttribute('aria-current');
   });
 }
+function startGalleryAutoSwipe(){
+  stopGalleryAutoSwipe();
+  if(!galleryDialog?.open&&!document.hidden&&gallerySlides.length>1){
+    galleryAutoTimer=window.setInterval(()=>showGallerySlide(activeGalleryIndex+1),500);
+  }
+}
+function stopGalleryAutoSwipe(){
+  if(galleryAutoTimer){window.clearInterval(galleryAutoTimer);galleryAutoTimer=null;}
+}
 function openGalleryPhoto(button){
   const image=button.querySelector('img');
   if(!image)return;
   lightboxImage.src=image.currentSrc||image.src;
   lightboxImage.alt=image.alt||'Wedding gallery photo';
   lightboxCaption.textContent=image.alt||'A memory to cherish';
+  stopGalleryAutoSwipe();
   galleryDialog.showModal();
 }
 gallerySlides.forEach(slide=>{
@@ -315,5 +326,7 @@ gallerySlides.forEach(slide=>{
 galleryDots.forEach((dot,index)=>dot.addEventListener('click',()=>showGallerySlide(index)));
 document.querySelector('.lightbox-close')?.addEventListener('click',()=>galleryDialog.close());
 galleryDialog?.addEventListener('click',event=>{if(event.target===galleryDialog)galleryDialog.close();});
-galleryDialog?.addEventListener('close',()=>{lightboxImage.src='';});
+galleryDialog?.addEventListener('close',()=>{lightboxImage.src='';startGalleryAutoSwipe();});
+document.addEventListener('visibilitychange',()=>document.hidden?stopGalleryAutoSwipe():startGalleryAutoSwipe());
 showGallerySlide(0);
+startGalleryAutoSwipe();
