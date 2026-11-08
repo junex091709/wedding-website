@@ -304,7 +304,7 @@ function showGallerySlide(index){
 function startGalleryAutoSwipe(){
   stopGalleryAutoSwipe();
   if(!galleryDialog?.open&&!document.hidden&&gallerySlides.length>1){
-    galleryAutoTimer=window.setInterval(()=>showGallerySlide(activeGalleryIndex+1),2000);
+    galleryAutoTimer=window.setInterval(()=>showGallerySlide(activeGalleryIndex+1),4000);
   }
 }
 function stopGalleryAutoSwipe(){
