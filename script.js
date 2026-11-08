@@ -9,6 +9,34 @@ const RSVP_ENDPOINT='https://script.google.com/macros/s/AKfycbxsh4w216H15EXjHmVe
 const rsvpForm=document.getElementById('rsvp-form');
 const rsvpSubmit=rsvpForm.querySelector('.submit-rsvp');
 const rsvpStatus=document.getElementById('rsvp-status');
+// Guest-list check uses JSONP because the Apps Script endpoint is cross-origin.
+let guestCheckCounter=0;
+function verifyInvitedGuest(name){
+  return new Promise((resolve,reject)=>{
+    const callbackName='__guestCheck'+(++guestCheckCounter);
+    const script=document.createElement('script');
+    const timeout=window.setTimeout(()=>{
+      cleanup();
+      reject(new Error('Guest verification timed out.'));
+    },10000);
+    function cleanup(){
+      window.clearTimeout(timeout);
+      delete window[callbackName];
+      script.remove();
+    }
+    window[callbackName]=(result)=>{
+      cleanup();
+      if(result&&result.success)resolve(Boolean(result.invited));
+      else reject(new Error((result&&result.error)||'Could not verify guest name.'));
+    };
+    script.onerror=()=>{
+      cleanup();
+      reject(new Error('Could not connect to the guest list.'));
+    };
+    script.src=RSVP_ENDPOINT+'?action=verify&name='+encodeURIComponent(name)+'&callback='+callbackName+'&_='+Date.now();
+    document.head.appendChild(script);
+  });
+}
 rsvpForm.addEventListener('submit',async e=>{
   e.preventDefault();
   rsvpStatus.textContent='';
@@ -30,8 +58,14 @@ rsvpForm.addEventListener('submit',async e=>{
     return;
   }
   rsvpSubmit.disabled=true;
-  rsvpSubmit.textContent='SENDING...';
+  rsvpSubmit.textContent='CHECKING GUEST LIST...';
   try{
+    const invited=await verifyInvitedGuest(payload.name);
+    if(!invited){
+      rsvpStatus.textContent='Sorry, your name is not on our guest list. This RSVP is reserved for invited guests only. Please contact the couple for assistance.';
+      return;
+    }
+    rsvpSubmit.textContent='SENDING...';
     await fetch(RSVP_ENDPOINT,{
       method:'POST',
       mode:'no-cors',
@@ -44,7 +78,7 @@ rsvpForm.addEventListener('submit',async e=>{
     if(guestInput&&guestName.textContent.startsWith('Dear '))guestInput.value=guestName.textContent.slice(5);
     window.setTimeout(()=>dialog.close(),1800);
   }catch(error){
-    rsvpStatus.textContent='We could not send your RSVP. Please check your connection and try again.';
+    rsvpStatus.textContent='We could not verify or send your RSVP. Please try again in a moment.';
   }finally{
     rsvpSubmit.disabled=false;
     rsvpSubmit.textContent='SUBMIT RSVP';
