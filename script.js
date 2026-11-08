@@ -7,7 +7,8 @@ const toggle=document.querySelector('.menu-toggle');
 const nav=document.querySelector('.nav');
 function closeMobileMenu(){
   if(!toggle||!nav)return;
-  closeMobileMenu();
+  nav.classList.remove('open');
+  toggle.setAttribute('aria-expanded','false');
   toggle.setAttribute('aria-label','Open navigation menu');
 }
 if(toggle&&nav){
@@ -41,8 +42,7 @@ function openGuestVerification(){
 }
 document.querySelectorAll('.nav-rsvp').forEach(link=>link.addEventListener('click',event=>{
   event.preventDefault();
-  nav.classList.remove('open');
-  toggle.setAttribute('aria-expanded','false');
+  closeMobileMenu();
   openGuestVerification();
 }));
 document.getElementById('open-guest-verify').addEventListener('click',openGuestVerification);
