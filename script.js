@@ -310,8 +310,11 @@ function showGallerySlide(index){
   if(galleryFadeTimer)window.clearTimeout(galleryFadeTimer);
   const currentSlide=gallerySlides[activeGalleryIndex];
   const nextSlide=gallerySlides[nextIndex];
-  gallerySlides.forEach(slide=>slide.classList.remove('is-next','is-fading-out'));
+  gallerySlides.forEach(slide=>slide.classList.remove('is-next','is-dissolving','is-fading-out'));
   nextSlide.classList.add('is-next');
+  // Commit the incoming slide's transparent starting state before animating both photos.
+  void nextSlide.offsetWidth;
+  nextSlide.classList.add('is-dissolving');
   currentSlide.classList.add('is-fading-out');
   galleryFadeTimer=window.setTimeout(()=>{
     setGallerySlide(nextIndex);
