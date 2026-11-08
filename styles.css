@@ -1150,7 +1150,7 @@ body::after{
 .background-slideshow{
   position:fixed;
   inset:0;
-  z-index:-2;
+  z-index:0;
   overflow:hidden;
   pointer-events:none;
   background:#f7f5ed;
@@ -1169,7 +1169,7 @@ body::after{
   content:"";
   position:absolute;
   inset:0;
-  background:linear-gradient(180deg,rgba(250,248,241,.78),rgba(250,248,241,.86));
+  background:linear-gradient(180deg,rgba(250,248,241,.54),rgba(250,248,241,.66));
 }
 .background-slide-one{
   background-image:url("assets/background/wedding-backgrounds/wedding-bg-1.webp");
@@ -1191,7 +1191,7 @@ body::after{
 @media(max-width:760px){
   .background-slide{background-position:center center}
   .background-slide::after{
-    background:linear-gradient(180deg,rgba(250,248,241,.82),rgba(250,248,241,.9));
+    background:linear-gradient(180deg,rgba(250,248,241,.62),rgba(250,248,241,.74));
   }
 }
 @media(prefers-reduced-motion:reduce){
