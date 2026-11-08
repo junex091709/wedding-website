@@ -278,16 +278,13 @@ if(mapDialog){
 
 
 
-// ===== Auto-rotating gallery carousel + single-photo preview =====
+// ===== Manual gallery carousel + single-photo preview =====
 const galleryDialog=document.getElementById('gallery-lightbox');
 const lightboxImage=document.getElementById('lightbox-image');
 const lightboxCaption=document.getElementById('lightbox-caption');
 const gallerySlides=[...document.querySelectorAll('.gallery-slide')];
 const galleryDots=[...document.querySelectorAll('.gallery-dot')];
-const galleryCarousel=document.querySelector('.gallery-carousel');
 let activeGalleryIndex=0;
-let galleryTimer=null;
-const galleryReducedMotion=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 function showGallerySlide(index){
   if(!gallerySlides.length)return;
   activeGalleryIndex=(index+gallerySlides.length)%gallerySlides.length;
@@ -303,43 +300,20 @@ function showGallerySlide(index){
     else dot.removeAttribute('aria-current');
   });
 }
-function stopGalleryAutoplay(){
-  if(galleryTimer){window.clearInterval(galleryTimer);galleryTimer=null;}
-}
-function startGalleryAutoplay(){
-  stopGalleryAutoplay();
-  if(galleryReducedMotion||document.hidden||galleryDialog.open)return;
-  galleryTimer=window.setInterval(()=>showGallerySlide(activeGalleryIndex+1),4500);
-}
 function openGalleryPhoto(button){
   const image=button.querySelector('img');
   if(!image)return;
   lightboxImage.src=image.currentSrc||image.src;
   lightboxImage.alt=image.alt||'Wedding gallery photo';
   lightboxCaption.textContent=image.alt||'A memory to cherish';
-  stopGalleryAutoplay();
   galleryDialog.showModal();
 }
 gallerySlides.forEach(slide=>{
   const button=slide.querySelector('.gallery-photo-open');
   button?.addEventListener('click',()=>openGalleryPhoto(button));
 });
-galleryDots.forEach((dot,index)=>dot.addEventListener('click',()=>{
-  showGallerySlide(index);
-  startGalleryAutoplay();
-}));
-galleryCarousel?.addEventListener('mouseenter',stopGalleryAutoplay);
-galleryCarousel?.addEventListener('mouseleave',startGalleryAutoplay);
-galleryCarousel?.addEventListener('focusin',stopGalleryAutoplay);
-galleryCarousel?.addEventListener('focusout',event=>{
-  if(!galleryCarousel.contains(event.relatedTarget))startGalleryAutoplay();
-});
-document.addEventListener('visibilitychange',()=>document.hidden?stopGalleryAutoplay():startGalleryAutoplay());
+galleryDots.forEach((dot,index)=>dot.addEventListener('click',()=>showGallerySlide(index)));
 document.querySelector('.lightbox-close')?.addEventListener('click',()=>galleryDialog.close());
 galleryDialog?.addEventListener('click',event=>{if(event.target===galleryDialog)galleryDialog.close();});
-galleryDialog?.addEventListener('close',()=>{
-  lightboxImage.src='';
-  startGalleryAutoplay();
-});
+galleryDialog?.addEventListener('close',()=>{lightboxImage.src='';});
 showGallerySlide(0);
-startGalleryAutoplay();
