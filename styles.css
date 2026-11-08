@@ -565,3 +565,124 @@ body.envelope-locked{overflow:hidden}
   #guest-verify-dialog{animation:none}
   #guest-verify-form input,#guest-verify-form .submit-rsvp,#guest-verify-form .dialog-close{transition:none}
 }
+
+
+/* ===== Elegant full-page atmosphere and ambient motion ===== */
+:root{
+  --page-ivory:#f8f6ef;
+  --page-sage:#e9ece3;
+  --page-gold:rgba(176,154,113,.16);
+}
+body{
+  position:relative;
+  isolation:isolate;
+  background:
+    radial-gradient(ellipse at 8% 12%,rgba(213,189,174,.20),transparent 31rem),
+    radial-gradient(ellipse at 92% 34%,rgba(177,190,164,.23),transparent 34rem),
+    radial-gradient(ellipse at 48% 78%,rgba(218,207,181,.20),transparent 38rem),
+    linear-gradient(180deg,#fbfaf5 0%,#f4f3eb 48%,#faf8f1 100%);
+}
+body::before,
+body::after{
+  content:"";
+  position:fixed;
+  z-index:-1;
+  pointer-events:none;
+  inset:-12%;
+}
+body::before{
+  opacity:.58;
+  background:
+    radial-gradient(ellipse at 14% 22%,rgba(181,194,166,.23) 0 1px,transparent 2px),
+    radial-gradient(ellipse at 83% 63%,rgba(176,154,113,.22) 0 1px,transparent 2px),
+    radial-gradient(ellipse at 68% 12%,rgba(213,189,174,.25) 0 2px,transparent 3px),
+    radial-gradient(ellipse at 25% 82%,rgba(181,194,166,.18) 0 2px,transparent 3px);
+  background-size:190px 210px,230px 250px,270px 290px,310px 330px;
+  animation:ambient-specks 32s linear infinite alternate;
+}
+body::after{
+  opacity:.5;
+  background:
+    radial-gradient(ellipse at 0% 48%,transparent 0 18rem,rgba(176,154,113,.045) 18.1rem,transparent 18.3rem),
+    radial-gradient(ellipse at 100% 72%,transparent 0 23rem,rgba(101,115,93,.05) 23.1rem,transparent 23.3rem);
+  animation:ambient-drift 24s ease-in-out infinite alternate;
+}
+.site-header,main,footer{position:relative;z-index:1}
+.invitation,.story,.entourage,.gallery{
+  background:linear-gradient(180deg,rgba(252,250,243,.86),rgba(248,246,239,.72));
+}
+.invitation{background-image:radial-gradient(ellipse at 50% 0%,rgba(213,189,174,.16),transparent 58%)}
+.story{background-image:radial-gradient(ellipse at 0% 50%,rgba(181,194,166,.13),transparent 48%)}
+.entourage{background-image:radial-gradient(ellipse at 100% 50%,rgba(213,189,174,.14),transparent 48%)}
+.gallery{background-image:radial-gradient(ellipse at 50% 100%,rgba(181,194,166,.16),transparent 58%)}
+.hero{
+  position:relative;
+  isolation:isolate;
+  overflow:hidden;
+  background:
+    radial-gradient(ellipse at 18% 18%,rgba(216,200,176,.16),transparent 35%),
+    radial-gradient(ellipse at 88% 85%,rgba(192,203,177,.12),transparent 38%),
+    linear-gradient(125deg,#465646 0%,#596950 52%,#465747 100%);
+}
+.hero::before,.rsvp::before{
+  content:"";
+  position:absolute;
+  inset:18px;
+  border:1px solid rgba(232,225,207,.16);
+  pointer-events:none;
+}
+.hero::after{
+  content:"";
+  position:absolute;
+  width:420px;
+  height:420px;
+  right:-170px;
+  top:-190px;
+  border:1px solid rgba(232,225,207,.14);
+  border-radius:50%;
+  box-shadow:0 0 0 28px rgba(232,225,207,.025),0 0 0 58px rgba(232,225,207,.02);
+  animation:hero-orbit 22s linear infinite;
+  pointer-events:none;
+}
+.hero-copy,.hero-photo{position:relative;z-index:1}
+.countdown{
+  position:relative;
+  background:
+    radial-gradient(ellipse at 50% 0%,rgba(222,211,187,.14),transparent 60%),
+    linear-gradient(115deg,#596951,#71806a 52%,#53634e);
+}
+.rsvp{
+  position:relative;
+  overflow:hidden;
+  background:
+    radial-gradient(ellipse at 8% 0%,rgba(223,211,184,.18),transparent 36%),
+    radial-gradient(ellipse at 95% 100%,rgba(190,202,177,.16),transparent 38%),
+    linear-gradient(120deg,#4e5d49,#6a795f 55%,#53634d);
+}
+.rsvp>*{position:relative;z-index:1}
+.event-card{
+  border:1px solid rgba(176,154,113,.16);
+  box-shadow:0 8px 30px rgba(53,65,57,.035);
+}
+.photo-frame{
+  box-shadow:0 16px 38px rgba(53,65,57,.09);
+}
+.gallery-grid .photo-frame:nth-child(2){transform:translateY(-12px)}
+.gallery-grid .photo-frame:nth-child(2):hover{transform:translateY(-18px)}
+@keyframes ambient-specks{
+  from{transform:translate3d(-1%,0,0)}
+  to{transform:translate3d(1.5%,-1.5%,0)}
+}
+@keyframes ambient-drift{
+  from{transform:translate3d(-1%,1%,0) rotate(-1deg)}
+  to{transform:translate3d(1%,-1%,0) rotate(1deg)}
+}
+@keyframes hero-orbit{to{transform:rotate(360deg)}}
+@media(max-width:760px){
+  .hero::before,.rsvp::before{inset:10px}
+  .gallery-grid .photo-frame:nth-child(2){transform:none}
+  .gallery-grid .photo-frame:nth-child(2):hover{transform:translateY(-4px)}
+}
+@media(prefers-reduced-motion:reduce){
+  body::before,body::after,.hero::after{animation:none}
+}
