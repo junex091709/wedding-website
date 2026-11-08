@@ -686,3 +686,23 @@ body::after{
 @media(prefers-reduced-motion:reduce){
   body::before,body::after,.hero::after{animation:none}
 }
+
+
+/* Minimal back-to-top arrow */
+footer .back-to-top{
+  display:grid;
+  place-items:center;
+  width:38px;
+  height:38px;
+  border:1px solid rgba(101,115,93,.28);
+  border-radius:50%;
+  color:var(--sage-dark);
+  font:24px/1 'DM Sans',sans-serif;
+  transition:transform .25s ease,background .25s ease,color .25s ease;
+}
+footer .back-to-top:hover{
+  transform:translateY(-4px);
+  background:var(--sage);
+  color:#fff;
+}
+footer .back-to-top span{font-size:24px;letter-spacing:0;color:inherit}
