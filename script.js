@@ -286,11 +286,13 @@ const gallerySlides=[...document.querySelectorAll('.gallery-slide')];
 const galleryDots=[...document.querySelectorAll('.gallery-dot')];
 let activeGalleryIndex=0;
 let galleryAutoTimer=null;
-function showGallerySlide(index){
+let galleryFadeTimer=null;
+function setGallerySlide(index){
   if(!gallerySlides.length)return;
   activeGalleryIndex=(index+gallerySlides.length)%gallerySlides.length;
   gallerySlides.forEach((slide,i)=>{
     const active=i===activeGalleryIndex;
+    slide.classList.remove('is-fading-out');
     slide.classList.toggle('is-active',active);
     slide.setAttribute('aria-hidden',String(!active));
   });
@@ -300,6 +302,18 @@ function showGallerySlide(index){
     if(active)dot.setAttribute('aria-current','true');
     else dot.removeAttribute('aria-current');
   });
+}
+function showGallerySlide(index){
+  if(!gallerySlides.length)return;
+  const nextIndex=(index+gallerySlides.length)%gallerySlides.length;
+  if(nextIndex===activeGalleryIndex)return;
+  if(galleryFadeTimer)window.clearTimeout(galleryFadeTimer);
+  const currentSlide=gallerySlides[activeGalleryIndex];
+  currentSlide.classList.add('is-fading-out');
+  galleryFadeTimer=window.setTimeout(()=>{
+    setGallerySlide(nextIndex);
+    galleryFadeTimer=null;
+  },3000);
 }
 function startGalleryAutoSwipe(){
   stopGalleryAutoSwipe();
