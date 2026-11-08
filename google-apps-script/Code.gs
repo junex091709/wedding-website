@@ -85,7 +85,7 @@ function isInvitedGuest(name) {
 }
 
 function normalizeGuestName(value) {
-  return String(value || '').trim().replace(/\\s+/g, ' ').toLocaleLowerCase();
+  return String(value || '').trim().replace(/\s+/g, ' ').toLocaleLowerCase();
 }
 
 function doPost(e) {
