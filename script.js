@@ -249,19 +249,15 @@ function openWeddingMap(card){
   const location=card.dataset.mapQuery;
   if(!location)return;
   mapTitle.textContent=card.querySelector('h3')?.textContent||'Wedding Location';
-  mapFrame.src='https://www.google.com/maps?q='+encodeURIComponent(location)+'&output=embed';
+  mapFrame.src='https://maps.google.com/maps?hl=en&q='+encodeURIComponent(location)+'&z=15&ie=UTF8&iwloc=&output=embed';
+  const directionsLink=document.getElementById('map-directions-link');
+  if(directionsLink)directionsLink.href='https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(location);
   mapDialog.showModal();
 }
 document.querySelectorAll('.event-card.map-clickable').forEach(card=>{
   card.addEventListener('click',event=>{
     event.preventDefault();
     openWeddingMap(card);
-  });
-  card.addEventListener('keydown',event=>{
-    if(event.key==='Enter'||event.key===' '){
-      event.preventDefault();
-      openWeddingMap(card);
-    }
   });
 });
 const mapClose=document.querySelector('.map-dialog-close');
