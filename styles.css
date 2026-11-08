@@ -1006,3 +1006,27 @@ body::after{
   .gallery-slides{aspect-ratio:16/9;min-height:0}
   .gallery-slide,.gallery-photo-open,.gallery-photo-open img{height:100%;min-height:0}
 }
+
+
+/* ===== Borderless cinematic vignette gallery ===== */
+.gallery-slides{
+  border:0;
+  box-shadow:none;
+  overflow:hidden;
+  isolation:isolate;
+}
+.gallery-slides::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:3;
+  pointer-events:none;
+  background:
+    radial-gradient(ellipse at center,transparent 48%,rgba(18,25,20,.12) 78%,rgba(18,25,20,.38) 115%),
+    linear-gradient(180deg,rgba(18,25,20,.12),transparent 22%,transparent 78%,rgba(18,25,20,.16));
+}
+.gallery-slide{z-index:0}
+.gallery-slide.is-active{z-index:1}
+.gallery-photo-open{position:relative;z-index:1}
+.gallery-photo-open img{filter:saturate(.96) contrast(1.03)}
+@media(max-width:760px){.gallery-slides{border:0}}
