@@ -1080,3 +1080,25 @@ body::after{
   opacity:1;
   visibility:visible;
 }
+
+
+/* ===== Three-second fade-out to black; next photo appears without fade-in ===== */
+.gallery-slides{background:#000}
+.gallery-slide{
+  opacity:0;
+  visibility:hidden;
+  transition:none;
+}
+.gallery-slide.is-active{
+  opacity:1;
+  visibility:visible;
+  transition:none;
+}
+.gallery-slide.is-active.is-fading-out{
+  opacity:0;
+  visibility:visible;
+  transition:opacity 3s ease-in-out;
+}
+@media(prefers-reduced-motion:reduce){
+  .gallery-slide.is-active.is-fading-out{transition:none}
+}
