@@ -109,7 +109,8 @@ rsvpForm.addEventListener('submit',async e=>{
     if(guestInput&&guestName.textContent.startsWith('Dear '))guestInput.value=guestName.textContent.slice(5);
     window.setTimeout(()=>dialog.close(),1800);
   }catch(error){
-    rsvpStatus.textContent='We could not verify or send your RSVP. Please try again in a moment.';
+    console.error('RSVP submission error:',error);
+    rsvpStatus.textContent='RSVP error: '+(error&&error.message?error.message:'Unknown error. Please contact the couple.');
   }finally{
     rsvpSubmit.disabled=false;
     rsvpSubmit.textContent='SUBMIT RSVP';
