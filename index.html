@@ -39,9 +39,6 @@
 <audio id="wedding-music" preload="none" loop>
   <source src="assets/Canon%20in%20D.mp3" type="audio/mpeg">
 </audio>
-<button class="music-toggle" id="music-toggle" type="button" aria-label="Mute background music" hidden>
-  <span class="music-icon">♫</span><span class="music-label">MUSIC ON</span>
-</button>
 
 <header class="site-header"><a class="brand" href="#home">O <i>&</i> A</a><button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">☰</button><nav class="nav"><a href="#story">Our Story</a><a href="#details">The Day</a><a href="#entourage">Entourage</a><a href="#gallery">Gallery</a><a class="nav-rsvp" href="#rsvp">RSVP</a></nav></header>
 <main>
@@ -55,8 +52,8 @@
 <section class="gallery section" id="gallery"><p class="eyebrow">MOMENTS WE CHERISH</p><h2>Our little gallery</h2><p class="intro">A few memories from our journey together.</p><div class="gallery-grid"><div class="photo-placeholder photo-frame"><img src="assets/picture/pexels-214377531-33051831.jpg" alt="Wedding gallery photograph one" loading="lazy"></div><div class="photo-placeholder photo-frame"><img src="assets/picture/pexels-214377531-33051836.jpg" alt="Wedding gallery photograph two" loading="lazy"></div><div class="photo-placeholder photo-frame"><img src="assets/picture/pexels-214377531-33051839.jpg" alt="Wedding gallery photograph three" loading="lazy"></div></div></section>
 <section class="rsvp" id="rsvp"><p class="eyebrow light">KINDLY REPLY BY NOVEMBER 20, 2026</p><h2>Will you join us?</h2><p>Your presence would mean the world to us. Kindly confirm your invitation to continue.</p><button class="rsvp-button" id="open-guest-verify" type="button">RSVP NOW →</button></section>
 </main>
-<footer><a class="brand" href="#home">O <i>&</i> A</a><span>MADE WITH LOVE · DECEMBER 12, 2026</span><a href="#home">BACK TO TOP ↑</a></footer>
+<footer><a class="brand" href="#home">O <i>&</i> A</a><span>MADE WITH LOVE · DECEMBER 12, 2026</span><a class="back-to-top" href="#home" aria-label="Back to top"><span aria-hidden="true">↑</span></a></footer>
 <dialog id="rsvp-dialog"><form id="rsvp-form"><button type="button" class="dialog-close" aria-label="Close">×</button><p class="eyebrow">OLIVIA & ALEXANDER</p><h2>Kindly RSVP</h2><label>Your full name<input name="name" required placeholder="Enter your name"></label><label>Will you attend?<select name="attendance" required><option value="">Please select</option><option>Joyfully accepts</option><option>Regretfully declines</option></select></label><label>Message (optional)<textarea name="message" rows="3" placeholder="Leave a note for the couple"></textarea></label><button class="submit-rsvp" type="submit">SUBMIT RSVP</button><p class="form-note" id="rsvp-status" role="status" aria-live="polite">Your response will be sent securely to the couple.</p></form></dialog>
 <dialog id="guest-verify-dialog" aria-labelledby="guest-verify-title"><form id="guest-verify-form"><button type="button" class="dialog-close guest-verify-close" aria-label="Close">×</button><p class="eyebrow">OLIVIA & ALEXANDER</p><h2 id="guest-verify-title">Your Invited Name</h2><p class="verify-intro">Please enter the name on your invitation so we can verify your guest list entry.</p><label for="guest-verify-name">YOUR FULL NAME<input id="guest-verify-name" name="guestName" type="text" autocomplete="name" placeholder="Enter your full name" maxlength="100" required></label><button class="submit-rsvp" id="verify-guest-submit" type="submit">VERIFY NAME & CONTINUE</button><p class="form-note" id="guest-verify-status" role="status" aria-live="polite"></p></form></dialog>
-<script src="script.js?v=elegant-rsvp-background-6"></script>
+<script src="script.js?v=remove-music-button-arrow-top-7"></script>
 </body></html>
