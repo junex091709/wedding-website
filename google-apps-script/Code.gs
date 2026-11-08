@@ -49,8 +49,6 @@ function setupRsvpSheet() {
 
 function doGet(e) {
   const params = (e && e.parameter) || {};
-  if (params.action !== 'verify') return jsonResponse({ success: true, message: 'RSVP service is ready.' });
-
   const callback = String(params.callback || '');
   if (!/^[A-Za-z_$][0-9A-Za-z_$]*$/.test(callback)) {
     return jsonResponse({ success: false, error: 'Invalid callback.' });
@@ -58,10 +56,22 @@ function doGet(e) {
 
   let result;
   try {
-    result = { success: true, invited: isInvitedGuest(params.name || '') };
+    if (params.action === 'verify') {
+      result = { success: true, invited: isInvitedGuest(params.name || '') };
+    } else if (params.action === 'submit') {
+      result = saveRsvp({
+        name: params.name,
+        attendance: params.attendance,
+        guests: params.guests,
+        message: params.message
+      });
+    } else {
+      result = { success: true, message: 'RSVP service is ready.' };
+    }
   } catch (error) {
     result = { success: false, error: String(error.message || error) };
   }
+
   return ContentService
     .createTextOutput(callback + '(' + JSON.stringify(result) + ');')
     .setMimeType(ContentService.MimeType.JAVASCRIPT);
@@ -92,37 +102,41 @@ function doPost(e) {
   try {
     const raw = e && e.postData && e.postData.contents;
     if (!raw) throw new Error('No RSVP data received.');
-
-    const data = JSON.parse(raw);
-    const name = cleanCell(data.name, 100);
-    const attendance = String(data.attendance || '');
-    const guests = Number(data.guests);
-    const message = cleanCell(data.message, 1000);
-    const eventName = 'Olivia & Alexander — December 12, 2026';
-
-    if (!name) throw new Error('Guest name is required.');
-    if (!isInvitedGuest(name)) throw new Error('This name is not on the invited guest list.');
-    if (!['Joyfully accepts', 'Regretfully declines'].includes(attendance)) {
-      throw new Error('Please select an attendance response.');
-    }
-    if (!Number.isInteger(guests) || guests < 1 || guests > 8) {
-      throw new Error('Guest count must be between 1 and 8.');
-    }
-
-    const spreadsheetId = PropertiesService.getScriptProperties().getProperty('RSVP_SHEET_ID');
-    const lock = LockService.getScriptLock();
-    lock.waitLock(10000);
-    try {
-      const sheet = SpreadsheetApp.openById(spreadsheetId).getSheetByName('Responses');
-      if (!sheet) throw new Error('Responses sheet was not found.');
-      sheet.appendRow([new Date(), name, attendance, guests, message, eventName]);
-    } finally {
-      lock.releaseLock();
-    }
-
-    return jsonResponse({ success: true });
+    return jsonResponse(saveRsvp(JSON.parse(raw)));
   } catch (error) {
     return jsonResponse({ success: false, error: String(error.message || error) });
+  }
+}
+
+function saveRsvp(data) {
+  const name = cleanCell(data.name, 100);
+  const attendance = String(data.attendance || '');
+  const guests = Number(data.guests);
+  const message = cleanCell(data.message, 1000);
+  const eventName = 'Olivia & Alexander — December 12, 2026';
+
+  if (!name) throw new Error('Guest name is required.');
+  if (!isInvitedGuest(name)) throw new Error('This name is not on the invited guest list.');
+  if (!['Joyfully accepts', 'Regretfully declines'].includes(attendance)) {
+    throw new Error('Please select an attendance response.');
+  }
+  if (!Number.isInteger(guests) || guests < 1 || guests > 8) {
+    throw new Error('Guest count must be between 1 and 8.');
+  }
+
+  const spreadsheetId = PropertiesService.getScriptProperties().getProperty('RSVP_SHEET_ID');
+  if (!spreadsheetId) throw new Error('RSVP spreadsheet is not configured.');
+  const spreadsheet = SpreadsheetApp.openById(spreadsheetId);
+  const lock = LockService.getScriptLock();
+  lock.waitLock(10000);
+  try {
+    const sheet = spreadsheet.getSheetByName('Responses');
+    if (!sheet) throw new Error('Responses sheet was not found.');
+    sheet.appendRow([new Date(), name, attendance, guests, message, eventName]);
+    SpreadsheetApp.flush();
+    return { success: true, message: 'RSVP saved to the spreadsheet.' };
+  } finally {
+    lock.releaseLock();
   }
 }
 
