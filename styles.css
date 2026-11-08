@@ -388,3 +388,17 @@ body.envelope-locked{overflow:hidden}
   font:13px 'DM Sans',sans-serif;
 }
 .rsvp-verify button:disabled{opacity:.65;cursor:wait}
+
+
+/* ===== RSVP invited-name verification popup ===== */
+#guest-verify-dialog{border:0;padding:0;width:min(92vw,460px);max-width:460px;box-shadow:0 24px 90px rgba(20,30,21,.28)}
+#guest-verify-form{padding:44px;background:var(--paper);position:relative}
+#guest-verify-form h2{font:44px/1.05 'Cormorant Garamond',serif;font-weight:400;color:var(--ink);margin:0 0 12px}
+#guest-verify-form .verify-intro{font-size:13px;color:var(--muted);margin:0 0 22px}
+#guest-verify-form label{display:grid;gap:7px;font-size:10px;font-weight:600;letter-spacing:1.2px;color:var(--sage)}
+#guest-verify-form input{width:100%;min-height:48px;padding:13px;border:1px solid #d8d9cf;background:#fff;font:14px 'DM Sans',sans-serif;color:var(--ink);outline:none}
+#guest-verify-form input:focus{border-color:var(--sage);box-shadow:0 0 0 3px rgba(101,115,93,.12)}
+#guest-verify-form .submit-rsvp{margin-top:18px}
+#guest-verify-form .form-note{min-height:18px;margin:12px 0 0}
+#guest-verify-form button:disabled{opacity:.65;cursor:wait}
+@media(max-width:520px){#guest-verify-form{padding:38px 26px}#guest-verify-form h2{font-size:39px}}
