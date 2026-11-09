@@ -1466,7 +1466,6 @@ footer{
 /* Personalized welcome shown after a guest name is verified */
 #guest-verify-form label[hidden],#guest-verify-submit[hidden],#guest-verified-welcome[hidden]{display:none!important}
 .guest-welcome{text-align:center;padding:8px 0 2px}
-.guest-welcome-mark{display:block;color:var(--gold);font:42px 'Cormorant Garamond',serif;margin:10px 0}
 .guest-welcome h3{font:38px 'Cormorant Garamond',serif;font-weight:400;color:var(--sage-dark);margin:0 0 8px}
 .guest-welcome p{font-size:13px;line-height:1.8;color:var(--muted);margin:0 auto 12px;max-width:330px}
 .guest-welcome .submit-rsvp{margin-top:12px}
