@@ -49,6 +49,7 @@ function openGuestVerification(){
   guestVerifyIntro.hidden=false;
   guestVerifyLabel.hidden=false;
   guestVerifySubmit.hidden=false;
+  guestVerifySubmit.style.display='';
   guestVerifiedWelcome.hidden=true;
   guestVerifySubmit.disabled=false;
   guestVerifySubmit.textContent='VERIFY NAME & CONTINUE';
@@ -80,6 +81,7 @@ guestVerifyForm.addEventListener('submit',async event=>{
     guestVerifyIntro.hidden=true;
     guestVerifyLabel.hidden=true;
     guestVerifySubmit.hidden=true;
+    guestVerifySubmit.style.display='none';
     guestVerifyStatus.textContent='';
     guestVerifiedWelcome.hidden=false;
   }catch(error){
