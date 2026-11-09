@@ -420,7 +420,7 @@ body.envelope-locked{overflow:hidden}
   backdrop-filter:blur(7px);
 }
 #guest-verify-form{
-  padding:54px 54px 46px;
+  padding:40px 44px 36px;
   text-align:center;
   background:
     radial-gradient(ellipse at 50% 0%,rgba(213,189,174,.16),transparent 48%),
@@ -436,19 +436,7 @@ body.envelope-locked{overflow:hidden}
   pointer-events:none;
   z-index:-1;
 }
-#guest-verify-form::after{
-  content:"✧";
-  display:grid;
-  place-items:center;
-  width:42px;
-  height:42px;
-  margin:0 auto 17px;
-  border:1px solid rgba(176,154,113,.55);
-  border-radius:50%;
-  color:var(--gold);
-  font:23px 'Cormorant Garamond',serif;
-  background:#fbf8ef;
-}
+#guest-verify-form::after{content:none;display:none}
 #guest-verify-form .eyebrow{
   margin-bottom:12px;
   font-size:9px;
@@ -458,12 +446,12 @@ body.envelope-locked{overflow:hidden}
 #guest-verify-form h2{
   font:400 clamp(42px,7vw,53px)/.98 'Cormorant Garamond',serif;
   letter-spacing:-.6px;
-  margin:0 0 14px;
+  margin:0 0 10px;
   color:#39443a;
 }
 #guest-verify-form .verify-intro{
   max-width:330px;
-  margin:0 auto 29px;
+  margin:0 auto 20px;
   color:#858778;
   font:13px/1.8 'DM Sans',sans-serif;
 }
@@ -555,7 +543,7 @@ body.envelope-locked{overflow:hidden}
 }
 @media(max-width:520px){
   #guest-verify-dialog{width:calc(100vw - 32px)}
-  #guest-verify-form{padding:48px 27px 35px}
+  #guest-verify-form{padding:38px 27px 30px}
   #guest-verify-form::before{inset:9px}
   #guest-verify-form .verify-intro{font-size:12px;margin-bottom:24px}
   #guest-verify-form h2{font-size:43px}
