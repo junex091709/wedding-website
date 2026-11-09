@@ -34,9 +34,20 @@ const guestVerifyForm=document.getElementById('guest-verify-form');
 const guestVerifyInput=document.getElementById('guest-verify-name');
 const guestVerifyStatus=document.getElementById('guest-verify-status');
 const guestVerifySubmit=document.getElementById('verify-guest-submit');
+const guestVerifyLabel=guestVerifyInput.closest('label');
+const guestVerifiedWelcome=document.getElementById('guest-verified-welcome');
+const guestWelcomeName=document.getElementById('guest-welcome-name');
+const continueToRsvp=document.getElementById('continue-to-rsvp');
+let verifiedGuestName='';
 function openGuestVerification(){
   guestVerifyStatus.textContent='';
   guestVerifyInput.value='';
+  verifiedGuestName='';
+  guestVerifyLabel.hidden=false;
+  guestVerifySubmit.hidden=false;
+  guestVerifiedWelcome.hidden=true;
+  guestVerifySubmit.disabled=false;
+  guestVerifySubmit.textContent='VERIFY NAME & CONTINUE';
   guestVerifyDialog.showModal();
   window.setTimeout(()=>guestVerifyInput.focus(),50);
 }
@@ -59,15 +70,24 @@ guestVerifyForm.addEventListener('submit',async event=>{
       guestVerifyStatus.textContent='Sorry, this name is not on the guest list. Please check the spelling or contact the couple.';
       return;
     }
-    rsvpForm.querySelector('[name="name"]').value=name;
-    guestVerifyDialog.close();
-    dialog.showModal();
+    verifiedGuestName=name;
+    guestWelcomeName.textContent='Welcome, '+name+'!';
+    guestVerifyLabel.hidden=true;
+    guestVerifySubmit.hidden=true;
+    guestVerifyStatus.textContent='';
+    guestVerifiedWelcome.hidden=false;
   }catch(error){
     guestVerifyStatus.textContent='Unable to verify your name right now. '+(error&&error.message?error.message:'Please try again.');
   }finally{
     guestVerifySubmit.disabled=false;
     guestVerifySubmit.textContent='VERIFY NAME & CONTINUE';
   }
+});
+continueToRsvp.addEventListener('click',()=>{
+  if(!verifiedGuestName)return;
+  rsvpForm.querySelector('[name="name"]').value=verifiedGuestName;
+  guestVerifyDialog.close();
+  dialog.showModal();
 });
 document.querySelectorAll('.dialog-close').forEach(button=>button.addEventListener('click',()=>{
   const parentDialog=button.closest('dialog');
