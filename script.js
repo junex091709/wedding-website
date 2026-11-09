@@ -35,6 +35,8 @@ const guestVerifyInput=document.getElementById('guest-verify-name');
 const guestVerifyStatus=document.getElementById('guest-verify-status');
 const guestVerifySubmit=document.getElementById('verify-guest-submit');
 const guestVerifyLabel=guestVerifyInput.closest('label');
+const guestVerifyTitle=document.getElementById('guest-verify-title');
+const guestVerifyIntro=document.getElementById('guest-verify-intro');
 const guestVerifiedWelcome=document.getElementById('guest-verified-welcome');
 const guestWelcomeName=document.getElementById('guest-welcome-name');
 const continueToRsvp=document.getElementById('continue-to-rsvp');
@@ -43,6 +45,8 @@ function openGuestVerification(){
   guestVerifyStatus.textContent='';
   guestVerifyInput.value='';
   verifiedGuestName='';
+  guestVerifyTitle.hidden=false;
+  guestVerifyIntro.hidden=false;
   guestVerifyLabel.hidden=false;
   guestVerifySubmit.hidden=false;
   guestVerifiedWelcome.hidden=true;
@@ -72,6 +76,8 @@ guestVerifyForm.addEventListener('submit',async event=>{
     }
     verifiedGuestName=name;
     guestWelcomeName.textContent='Welcome, '+name+'!';
+    guestVerifyTitle.hidden=true;
+    guestVerifyIntro.hidden=true;
     guestVerifyLabel.hidden=true;
     guestVerifySubmit.hidden=true;
     guestVerifyStatus.textContent='';
