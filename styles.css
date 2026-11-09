@@ -1441,3 +1441,35 @@ footer{
     radial-gradient(ellipse at 88% 82%,rgba(113,128,106,.10),transparent 36%),
     linear-gradient(135deg,#fffdf7 0%,#f4f1e7 52%,#fbf8f0 100%) !important;
 }
+
+
+/* ===== Wedding timeline, calendar link and guest FAQ ===== */
+.wedding-timeline{max-width:760px;margin:65px auto 0;padding:42px 34px 38px;background:rgba(255,253,247,.76);border:1px solid rgba(176,154,113,.22);box-shadow:0 14px 38px rgba(53,65,57,.055)}
+.timeline-heading{font:40px 'Cormorant Garamond',serif;font-weight:400;color:#485646;margin:0 0 30px}
+.timeline-list{max-width:570px;margin:0 auto 30px;text-align:left}
+.timeline-item{display:grid;grid-template-columns:95px 18px 1fr;gap:18px;position:relative;padding:0 0 28px}
+.timeline-item:not(:last-child)::after{content:"";position:absolute;left:121px;top:17px;bottom:-1px;width:1px;background:rgba(176,154,113,.55)}
+.timeline-time{font-size:12px;letter-spacing:1px;color:var(--sage-dark);font-weight:600;padding-top:1px}
+.timeline-marker{width:9px;height:9px;border:2px solid var(--gold);border-radius:50%;background:var(--paper);margin-top:6px;z-index:1}
+.timeline-item h4{font:25px 'Cormorant Garamond',serif;font-weight:500;margin:0;color:#485646}
+.timeline-item p{font-size:12px;color:var(--muted);margin:3px 0 0}
+.calendar-link{display:inline-block;padding:13px 23px;background:var(--sage);color:#fffdf7;font-size:10px;letter-spacing:1.4px;box-shadow:0 7px 18px rgba(53,65,57,.12)}
+.faq-section{background:linear-gradient(135deg,#fffdf7,#f3f0e6)}
+.faq-list{max-width:760px;margin:42px auto 0;text-align:left;border-top:1px solid rgba(176,154,113,.32)}
+.faq-item{border-bottom:1px solid rgba(176,154,113,.32);padding:0 5px}
+.faq-item summary{cursor:pointer;list-style:none;padding:20px 34px 20px 4px;position:relative;font:24px 'Cormorant Garamond',serif;color:#485646}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-item summary::after{content:"＋";position:absolute;right:5px;top:18px;font:18px 'DM Sans',sans-serif;color:var(--gold)}
+.faq-item[open] summary::after{content:"−"}
+.faq-item p{font-size:13px;color:var(--muted);margin:0;padding:0 30px 20px 4px;line-height:1.8}
+@media(max-width:760px){
+ .wedding-timeline{margin:42px -2px 0;padding:32px 17px}
+ .timeline-heading{font-size:34px}
+ .timeline-item{grid-template-columns:76px 14px 1fr;gap:12px}
+ .timeline-item:not(:last-child)::after{left:102px}
+ .timeline-item h4{font-size:22px}
+ .timeline-item p{font-size:11px}
+ .calendar-link{font-size:9px;padding:13px 15px}
+ .faq-list{margin-top:30px}
+ .faq-item summary{font-size:21px;padding-top:18px;padding-bottom:18px}
+}
